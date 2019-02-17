@@ -1,0 +1,77 @@
+{
+  "name": "cardfight_vanguard",
+  "version": "1.0.0",
+  "description": "Cool playback bot with other awesome features.",
+  "main": "shard.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node shard.js 2>&1"
+  },
+  "author": "Fallentaco",
+  "license": "MIT",
+  "engines": {
+    "node": "10.0.0"
+  },
+  "keywords": [
+    "music",
+    "sound",
+    "youtube",
+    "playlist"
+  ],
+  "dependencies": {
+    "bad-words": "^3.0.0",
+    "better-sqlite-pool": "^0.2.0",
+    "better-sqlite3": "^5.4.0",
+    "blapi": "^1.0.1",
+    "boats.js": "^2.1.2",
+    "bufferutil": "^4.0.1",
+    "dblapi.js": "^2.3.0",
+    "discord-economy": "^1.1.6",
+    "discord.js": "^11.4.2",
+    "discordboats.xyz": "^1.0.5",
+    "discordextremelist-api": "github:discordsextremelist/js-library",
+    "djs-commands": "^1.2.2",
+    "djs-easy-command": "github:fallenthetaco/djs-easy-command#4366610ccbd59790054d5cc210ec0432b68f0d78",
+    "ejs": "^2.6.1",
+    "enmap": "^4.8.0",
+    "erlpack": "github:discordapp/erlpack",
+    "express": "^4.16.4",
+    "ffmpeg-binaries": "^4.0.0",
+    "figlet": "^1.2.1",
+    "hash-generator": "^0.1.0",
+    "hastebin-gen": "^1.3.1",
+    "mathjs": "^5.4.2",
+    "moment-duration-format": "^2.2.2",
+    "nan": "^2.12.1",
+    "nedb": "^1.8.0",
+    "node-cmd": "^3.0.0",
+    "node-fetch": "^2.3.0",
+    "node-gyp": "^3.8.0",
+    "node-opus": "^0.3.1",
+    "node-schedule": "^1.3.2",
+    "oauth": "^0.9.15",
+    "opusscript": "^0.0.6",
+    "path": "^0.12.7",
+    "pnpm": "^2.25.6",
+    "quick.db": "^7.0.0-b17",
+    "random-puppy": "^1.1.0",
+    "request": "^2.88.0",
+    "return-deep-diff": "^0.3.0",
+    "simple-youtube-api": "^5.1.1",
+    "slothapi.js": "^1.2.0",
+    "snekfetch": "^4.0.4",
+    "sodium": "^3.0.2",
+    "sqlite3": "^4.0.6",
+    "util": "^0.11.1",
+    "yt-search": "^0.4.1",
+    "ytdl-core": "^0.29.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fallenthetaco/FallenTheTaco.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Fallenthetaco/FallenTheTaco/issues"
+  },
+  "homepage": "https://github.com/Fallenthetaco/FallenTheTaco#readme"
+}

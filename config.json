@@ -1,0 +1,10 @@
+{
+    "modRole": "Moderator",
+    "adminRole": "Admin",
+    "prefix": "!",
+    "channelId": "431925455231385610",
+    "ownerID": "286713468285878272",
+	  "user":"localhost", 
+    "channel": "502929376862797825",
+	  "pass":"varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL"
+}
