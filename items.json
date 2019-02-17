@@ -1,0 +1,44 @@
+{
+    "Operations": {
+        "name": "Operations Engineer",
+        "type": "Jobs",
+        "price": 5000,
+        "desc": "You get this job after being an employee"
+    },
+    "Packaging": {
+        "name": "Packaging Engineer",
+        "type": "Jobs",
+        "price": 44000,
+        "desc": "You get this job after being an Operations Engineer"
+    },
+    "Associate": {
+        "name": "Associate R Manager",
+        "type": "Jobs",
+        "price": 70000,
+        "desc": "You get this job after being a Packaging Engineer"
+    },
+    "Assistant": {
+        "name": "Assistant General Manager",
+        "type": "Jobs",
+        "price": 100600,
+        "desc": "You get this job after being an Associate R Manager"
+    },
+    "R General": {
+        "name": "R General Manager",
+        "type": "Jobs",
+        "price": 190000,
+        "desc": "You get this job after being an Assistant General Manager"
+    },
+    "Shift": {
+        "name": "Shift Manager",
+        "type": "Jobs",
+        "price": 405000,
+        "desc": "You get this job after being a R General Manager"
+    },
+    "Taco Bell": {
+        "name": "Tacobell Mafia Boss",
+        "type": "Jobs",
+        "price": 1000000,
+        "desc": "You get this job after being a Shift Manager"
+    }
+}

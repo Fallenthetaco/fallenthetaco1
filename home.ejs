@@ -1,0 +1,141 @@
+<doctype html>
+    <html>
+<head>
+<link rel="icon" 
+      type="image/ico" 
+      href="Fallenthetaco.ico"/>
+
+    <title>Home - FallenTheTaco</title>
+      </head>
+    <body>
+        <style>
+            li {
+                float: left;
+                text-align: center;
+                border-right: 1px solid #bbb;
+            }
+
+            ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                background-color: #333;
+            }
+
+            p {
+                left: 100px;
+                margin: auto;
+                text-align: center;
+                font-size: 90px;
+                background-color: #7289DA;
+            }
+
+            p1 {
+                text-align: center;
+                font-size: 30px;
+                display: block;
+                color: lightblue;
+            }
+
+            th {
+                padding: 40px;
+            }
+
+            tr {
+                font-size: 50px;
+                background-color: #f1f1c1;
+            }
+
+            table {
+                border: 11px blue;
+            }
+
+            a {
+                text-align: center;
+                font-size: 24px;
+                padding: 40px;
+                border: 11px;
+            }
+            h2 {
+                text-align: center;
+            }
+            body {
+                background-color: gray;
+            }
+
+            li a {
+                display: block;
+                color: white;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+                font-size: 35px;
+            }
+        </style>
+        <div class="navbar">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="commands">Commands</a></li>
+                <li><a href="donate">Donate</a></li>
+                <li><a href="addme">Addme</a></li>
+                <li><a href="upvote">Upvote</a></li>
+                <li style="float:right"><a class="active" href="support">Support</a></li>
+            </ul>
+        </div>
+        <br>
+        <p>FallenTheTaco</p>
+        <br>
+        <p1>This is Fallenthetaco. The bot who has fallen and needs help. This bot was programmed to help people in the server using moderation, music, and some fun commands. If anyone needs a taco, we have the image so please add this bot. This bot will help save world hunger. To use this bot, you must<a href="addme">Click here</a>and do <b>!help</b> to get started.</p1>
+        <br>
+        <table style="width:100%">
+            <td><b>Users:</b>
+                <%= client.users.size;%>
+            </td>
+            <tr>
+                <td><b>Guilds:</b>
+                    <%= client.guilds.size;%>
+                </td>
+            </tr>
+            <tr>
+                <td><b>Commands:</b>
+                    <%= client.commands.size;%>
+                </td>
+            </tr>
+          <tr>
+            <td><b>Uptime:</b>
+              <%
+function convertMS(milliseconds) {
+    var day, hour, minute, seconds;
+    seconds = Math.floor(milliseconds / 1000);
+    minute = Math.floor(seconds / 60);
+    seconds = seconds % 60;
+    hour = Math.floor(minute / 60);
+    minute = minute % 60;
+    day = Math.floor(hour / 24);
+    hour = hour % 24;
+    return {
+        day: day,
+        hour: hour,
+        minute: minute,
+        seconds: seconds
+    };
+}
+              const uptime = client.uptime;
+            var durations = convertMS(uptime);%>
+              <%= `${durations.day} days, ${durations.hour} hours, ${durations.minute} minutes, ${durations.seconds} seconds`%>
+            </td>
+          </tr>
+          <tr>
+          <td><b>Activities:</b> I have fixed all of the bugs/commands. They all should be working. If not please click <b>Support</b> on the top right to join the support server and contact me through there.</td>
+          </tr>
+            <tr class="w3-hover-gray w3-border">
+
+        </table>
+    </body>
+<div class="footer">
+  <h2>©Created by FallenTaco 2018-2019</h2>
+      </div>
+
+    </html>
+</doctype>
