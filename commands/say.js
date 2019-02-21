@@ -16,6 +16,7 @@ class say extends Command {
     }
 
     async run(client, message, args) {
+      if (!message.deletable) return;
         message.delete();
         mentionHook.send(`${message.author.username}#${message.author.discriminator} used the **say** command in the server: ${message.guild.name} (${message.guild.id})`);
         const msg = args.join(' ');

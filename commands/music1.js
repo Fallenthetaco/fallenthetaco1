@@ -3,9 +3,9 @@ const YouTube = module.require("simple-youtube-api");
 const ytdl = module.require("ytdl-core");
 const queue = new Map();
 const config = require('../config.json');
-const youtube = new YouTube(process.env.googleapikey);
+const youtube = new YouTube('AIzaSyDIc5xF7lWIpahYOKlIoij05vtP0FruwTc');
 const client = new Discord.Client();
-const ownerID = process.env.ownerID;
+const ownerID = '286713468285878272';
 const {
     Command
 } = require('djs-easy-command');

@@ -62,7 +62,6 @@ class warn extends Command {
                     num: warn,
                     reason: reason
                 }]);
-                console.log(client.warnings)
             }
         } catch (e) {
             console.log(e);

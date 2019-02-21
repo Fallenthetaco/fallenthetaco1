@@ -1,25 +1,18 @@
-const express = require('express');
-const app = express();
-const webhook_secret = process.env.DBL_TOKEN;
-const http = require('http');
-const server = http.createServer(app);
 const eco = require('discord-economy');
 const Discord = require('discord.js');
-const path = require('path')
 const {
     Client
 } = require('discord.js');
-// const Manager = new Discord.ShardingManager('./vanguard.js');
 const mentionHook = new Discord.WebhookClient("529033946860748821", "83sXCuU-c1qXfU8KwksIvx4nAKU3dstC1oTfWxD9qAZ8fIU7K38ZmXYGA0vDMrF2WtQ-");
 const errorBot = new Discord.WebhookClient('529091044160176138', '1vGxl9XVgWi1GiCSZtBq-eIaG4OAP6L5q9W4Klf7ENghtTD4GVM2-LJ-WvaKHcWjXGzO');
 const config = require("./config.json");
 const ddiff = require('return-deep-diff');
 const request = require("request");
 const fs = require("fs")
-const ownerID = process.env.ownerID;
+const ownerID = '286713468285878272';
 const filters = require('./functions');
 const items = JSON.parse(fs.readFileSync('items.json', 'utf8'));
-const moment = require('moment');
+const moment = require('moment'); 
 const newUsers = new Discord.Collection();
 const modRole = 'Administrator';
 const Enmap = require('enmap');
@@ -119,45 +112,24 @@ function convertMS(milliseconds) {
 process.on('unhandledRejection', (reason, p) => {
     console.log('Unhandled Rejection at: Promise', p, 'reason:', reason.stack);
 });
-server.listen(3000);
-setInterval(() => {
-    http.get(`http://fallenthetaco.glitch.me/`);
-}, 280000);
-app.set('view engine', 'ejs')
-app.get('/', function(req, res) {
-    res.render(__dirname + '/home.ejs', {
-        client: client
-    })
-});
-app.get('/support', function(req, res) {
-    res.sendFile(__dirname + '/support.html')
-});
-app.get('/donate', function(req, res) {
-    res.sendFile(__dirname + '/donate.html')
-});
-app.get('/upvote', function(req, res) {
-    res.sendFile(__dirname + '/upvote.html')
-});
-app.get('/addme', function(req, res) {
-    res.sendFile(__dirname + '/addme.html')
-});
-app.get('/commands', function(req, res) {
-    res.render(__dirname + '/commands.ejs', {
-        client: client
-    })
-});
+const http = require("http");
+
+const port = 3000;
+http.createServer().listen(port);
+
 
 const upvoted = new Discord.WebhookClient('460934572230705172', 'nF5S4tbUZsf6lUP6iuEIPftginCgnuKp1hZ3V5w5QfIepCE-KNKbJVzqG8PTRncdKbhA')
 const DBL = require('dblapi.js');
-const dbl = new DBL(process.env.DBL_TOKEN, {
-    webhookServer: server,
+const dbl = new DBL('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQzNjA0NzA1NjM5NDY0OTYwMCIsImJvdCI6dHJ1ZSwiaWF0IjoxNTQ2MjM1MzUwfQ.NpErjoDENQNl82HZmvFAIJM3rzQ_MvX0xyaj3FCtjiA', {
+    webhookPort: 5000,
     webhookAuth: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQzNjA0NzA1NjM5NDY0OTYwMCIsImJvdCI6dHJ1ZSwiaWF0IjoxNTI3ODg3MDY3fQ.3JuTYp-rb2-kXEaB6-RCTahjofJ1kZvpjT1BrjeGy50'
 }, client);
-
+dbl.webhook.on('ready', hook => {
+  console.log(`Webhook running at http://${hook.hostname}:${hook.port}${hook.path}`);
+});
 // process.on("unhandledRejection", error => {
 //     console.error("Unhandled promise rejection:", error);
 // });
-
 dbl.webhook.on('vote', async (vote) => {
     if (vote.isWeekend === true) {
         client.blocks.ensure('blacklist', []);
@@ -762,7 +734,7 @@ const handleReady = (message) => {
                         const {
                             body: reply
                         } = await post('https://discordbotlist.com/api/bots/436047056394649600/stats')
-                            .set("Authorization", `Bot ${process.env.discordbotlist}`)
+                            .set("Authorization", `Bot 5af87d9b0e181430a27b6f91dae3815847b6bfff76919faf580ba33075aecbd2`)
                             .send({
                                 guilds: results.reduce((prev, val) => prev + val, 0),
                                 users: user.reduce((prev, val) => prev + val, 0),
@@ -781,4 +753,4 @@ client.on('guildMemberAdd', handleGuildMemberAdd);
 client.on('ready', handleReady);
 client.on('error', console.error);
 
-client.login(process.env.TOKEN);
+client.login('NDM2MDQ3MDU2Mzk0NjQ5NjAw.DzreTA.l9nN1bLbkJE2JZs9dwiHQGEvmBA');

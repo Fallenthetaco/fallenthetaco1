@@ -19,7 +19,7 @@ class reload extends Command {
     }
 
     async run(client, message, args) {
-        if (message.author.id !== process.env.ownerID) return message.channel.send('You are not the owner of this bot!!');
+        if (message.author.id !== '286713468285878272') return message.channel.send('You are not the owner of this bot!!');
         const commandName = args[0];
         if (!commandName || commandName.size < 0) return message.reply("Must provide a command name to reload!!");
         // Check if the command exists and is valid
@@ -34,6 +34,7 @@ class reload extends Command {
         // We also need to delete and reload the command from the client.commands Enmap
         client.commands.delete(commandName);
         const props = require(`./${commandName}.js`);
+        console.log(props);
         client.commands.set(commandName, props);
         const embed = new Discord.RichEmbed()
             .setColor(`#36393E`)

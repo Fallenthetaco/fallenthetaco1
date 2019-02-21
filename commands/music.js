@@ -8,8 +8,8 @@ const ytdl = module.require("ytdl-core");
 const search = require('yt-search');
 const config = require('../config.json');
 const queue = new Map();
-const youtube = new YouTube(process.env.googleapikey);
-const ownerID = process.env.ownerID;
+const youtube = new YouTube('AIzaSyDIc5xF7lWIpahYOKlIoij05vtP0FruwTc');
+const ownerID = '286713468285878272';
 const {
     Command
 } = require('djs-easy-command');

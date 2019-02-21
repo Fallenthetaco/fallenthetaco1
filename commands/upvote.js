@@ -16,11 +16,11 @@ class upvote extends Command {
 
 async run (client, message, args) {
     mentionHook.send(`${message.author.username}#${message.author.discriminator} used the **upvote** command in the server: ${message.guild.name} (${message.guild.id})`);
-    const embedd = new Discord.RichEmbed()
-        .setTitle(`Vote for me`)
-        .setColor(`#36393E`)
-        .addField('Discord Bots List:', `[Click Here](https://discordbots.org/bot/436047056394649600/vote)`);
-    message.channel.send(embedd);
+//    const embedd = new Discord.RichEmbed()
+//        .setTitle(`Vote for me`)
+//        .setColor(`#36393E`)
+//        .addField('Discord Bots List:', `[Click Here](https://discordbots.org/bot/436047056394649600/vote)`);
+    message.channel.send('Sorry, but the upvote system is broken. Please wait until it is fixed thanks.');
 }
 }
 module.exports = upvote;

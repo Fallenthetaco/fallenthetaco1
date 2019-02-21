@@ -4,7 +4,7 @@ const {
 const write = promisify(require("fs").writeFile);
 const Discord = require('discord.js');
 
-const ownerID = process.env.ownerID;
+const ownerID = '286713468285878272';
 const { Command } = require('djs-easy-command');
 
 class reboot extends Command {
