@@ -12,7 +12,7 @@ const fs = require("fs")
 const ownerID = '286713468285878272';
 const filters = require('./functions');
 const items = JSON.parse(fs.readFileSync('items.json', 'utf8'));
-const moment = require('moment'); 
+const moment = require('moment');
 const newUsers = new Discord.Collection();
 const modRole = 'Administrator';
 const Enmap = require('enmap');
@@ -410,18 +410,11 @@ const handleMessage = async (message) => {
         client.db.find({
             id: message.guild.id
         }, (err, data) => {
-            if (!data[0]) return message.channel.send('The prefix is **!**.');
-            if (data[0]) return message.channel.send(`The prefix is **${data[0].prefix}**`);
+            if (!data[0]) return message.channel.send('The prefix is **!**');
+            if (data[0]) return message.channel.send(`The prefix is **${data[0].prefix}** or **!** (default)`);
         });
     }
     if (!message.content.startsWith('!')) return;
-    if (cooldown.has(message.author.id)) {
-
-        const embed = new Discord.RichEmbed()
-            .setColor(`#36393E`)
-            .setDescription(`<@${message.author.id}>, You have to wait 5 seconds before using the command again.`);
-        return message.channel.send(embed);
-    }
     const args = message.content.split(/ +/g);
 
     if (message.content.startsWith('!0000')) {
@@ -459,10 +452,6 @@ const handleMessage = async (message) => {
     // }
     //         commandfile.run(client, message, args, guildConf, mentionHook, errorBot, func);
     //     }
-    setTimeout(() => {
-        cooldown.delete(message.author.id)
-    }, cdseconds * 1000);
-
 
     const argresult = args.slice(1).join(' ');
     if (message.content.startsWith('!channel')) {
@@ -471,9 +460,13 @@ const handleMessage = async (message) => {
     if (message.content.startsWith('!block')) {
         if (message.author.id !== ownerID) return;
         client.blocks.ensure('blacklist', []);
-        let person = args[1];
-        if (!person) return message.channel.send('You must provide the id of the person you want to blacklist from the bot.');
-        if (isNaN(args[1])) return message.channel.send('You must provide a valid id of the person you want to blacklist from the bot.');
+        let person = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[1]);
+        if (!person) return message.channel.send('You must provide mention the person you want to blacklist from the bot\'s economy.');
+        person = person.id;
+        if (!isNaN(args[1])) {
+        let person = message.guild.members.get(args[1]).id;
+        if (!person) return message.channel.send('You must provide a real id of the person you want to remove from the blacklist.')
+        }
         let check = client.blocks.get('blacklist')
         if (check.includes(person)) return message.channel.send('This person is already blacklisted.')
         client.blocks.push('blacklist', person);
@@ -482,9 +475,13 @@ const handleMessage = async (message) => {
     if (message.content.startsWith('!unblock')) {
         if (message.author.id !== ownerID) return;
         client.blocks.ensure('blacklist', []);
-        let person = args[1];
+        let person = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[1]);
         if (!person) return message.channel.send('You must provide the id of the person you want to remove from the blacklist.');
-        if (isNaN(args[1])) return message.channel.send('You must provide a valid id of the person you want to remove from the blacklist.');
+        person = person.id;
+        if (!isNaN(args[1])) {
+        let person = message.guild.members.get(args[1]).id;
+        if (!person) return message.channel.send('You must provide a real id of the person you want to remove from the blacklist.')
+        }
         let check = client.blocks.get('blacklist')
         if (!check.includes(person)) return message.channel.send('This person has not been blacklisted yet.')
         client.blocks.remove('blacklist', person);

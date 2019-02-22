@@ -31,7 +31,7 @@ class kick extends Command {
                 .setColor(`#36393E`)
                 .setDescription('Sorry, I am missing the **KICK MEMBERS** permission to use this command!')
             if (!message.guild.me.hasPermission('KICK_MEMBERS')) return message.channel.send(embeddddddd);
-            let mem = message.guild.member(message.mentions.user.first()) || message.guild.members.get(args[0]);
+            let mem = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0]);
             const embedd = new Discord.RichEmbed()
                 .setColor(`#36393E`)
                 .setDescription('You must mention a user!');
@@ -40,6 +40,10 @@ class kick extends Command {
                 .setColor(`#36393E`)
                 .setDescription('You can not kick someone that has the same or higher permissions than you!');
             if (mem.highestRole.position >= message.member.highestRole.position) return message.channel.send(embeddd);
+            const notBannable = new Discord.RichEmbed()
+            .setColor('#36393E')
+            .setDescription('You can not kick this user.');
+            if (mem.kickable === false) return message.channel.send(notBannable);
             mem.kick();
             const embedddd = new Discord.RichEmbed()
                 .setColor(`#36393E`)

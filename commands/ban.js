@@ -37,7 +37,7 @@ class ban extends Command {
             const target = message.mentions.members.first() || message.guild.members.get(args[0]);
 
             const usser = new Discord.RichEmbed()
-                .setColor("RANDOM")
+                .setColor("#36393E")
                 .setDescription('You must choose someone in the server');
 
             if (!target) return message.channel.send(usser);
@@ -47,6 +47,10 @@ class ban extends Command {
                 .setDescription('Sorry, you can not ban someone that has the same or higher permissions than you, Also you must have their role below yours in order for this to work');
 
             if (target.highestRole.position >= message.member.highestRole.position) return message.channel.send(tarrget);
+            const notBannable = new Discord.RichEmbed()
+            .setColor('#36393E')
+            .setDescription('You can not ban this user.');
+            if (target.bannable === false) return message.channel.send(notBannable);
             target.ban();
 
             const ban = new Discord.RichEmbed()
