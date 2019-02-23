@@ -30,7 +30,11 @@ class music1 extends Command {
         const prefix = client.guildPrefixes.get(message.guild.id);
         if (!prefix) client.guildPrefixes.set(message.guild.id, '!');
         if (args[0] === "play") {
-            mentionHook.send(`${message.member.user.tag} used the **play** command in the server: ${message.guild.name} (${message.guild.id})`);
+          const webhook = new Discord.RichEmbed()
+          .setColor('#36393E')
+          .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+          .setDescription(`${message.member.user.tag} used the **play** command`)
+            mentionHook.send(webhook);
             const playFail = new Discord.RichEmbed()
                 .setColor(`#36393E`)
                 .setDescription("Enter the music link or music name!");
@@ -111,7 +115,11 @@ class music1 extends Command {
                 return handleMusic(video, message, voiceChannel)
             }
         } else if (args[0] === "stop") {
-            mentionHook.send(`${message.author.username}#${message.author.discriminator} used the **stop** command in the server: ${message.guild.name} (${message.guild.id})`);
+          const webhook = new Discord.RichEmbed()
+          .setColor('#36393E')
+          .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+          .setDescription(`${message.author.username}#${message.author.discriminator} used the **stop** command`)
+            mentionHook.send(webhook);
             try {
                 const vcFail = new Discord.RichEmbed()
                     .setColor(`#36393E`)
@@ -141,7 +149,11 @@ class music1 extends Command {
                 errorBot.send(embed);
             }
         } else if (args[0] === "repeat") {
-            mentionHook.send(`${message.author.username}#${message.author.discriminator} used the **repeat** command in the server: ${message.guild.name} (${message.guild.id})`);
+          const webhook = new Discord.RichEmbed()
+          .setColor('#36393E')
+          .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+          .setDescription(`${message.author.username}#${message.author.discriminator} used the **repeat** command`)
+            mentionHook.send(webhook);
             try {
                 serverQueue.repeating = !serverQueue.repeating;
                 const repeat = new Discord.RichEmbed()
@@ -157,7 +169,11 @@ class music1 extends Command {
             }
         } else if (args[0] === "skip") {
             try {
-                mentionHook.send(`${message.author.username}#${message.author.discriminator} used the **skip** command in the server: ${message.guild.name} (${message.guild.id})`);
+              const webhook = new Discord.RichEmbed()
+              .setColor('#36393E')
+              .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+              .setDescription(`${message.author.username}#${message.author.discriminator} used the **skip** command`)
+                mentionHook.send(webhook);
                 const skipFail = new Discord.RichEmbed()
                     .setColor(`#36393E`)
                     .setDescription("You're not in a voice channel!")
@@ -183,7 +199,11 @@ class music1 extends Command {
                 errorBot.send(embed);
             }
         } else if (args[0] === 'pause') {
-            mentionHook.send(`${message.author.username}#${message.author.discriminator} used the **pause** command in the server: ${message.guild.name} (${message.guild.id})`);
+          const webhook = new Discord.RichEmbed()
+          .setColor('#36393E')
+          .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+          .setDescription(`${message.author.username}#${message.author.discriminator} used the **pause** command`)
+            mentionHook.send(webhook);
             const sameIDFail = new Discord.RichEmbed()
                 .setColor('#36393E')
                 .setDescription('You are not in the same voice channel as I am in.');
@@ -201,7 +221,11 @@ class music1 extends Command {
                 .setDescription('There is nothing currently playing.')
             return message.channel.send(pausedFail);
         } else if (args[0] === 'resume') {
-            mentionHook.send(`${message.author.username}#${message.author.discriminator} used the **resume** command in the server: ${message.guild.name} (${message.guild.id})`);
+          const webhook = new Discord.RichEmbed()
+          .setColor('#36393E')
+          .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+          .setDescription(`${message.author.username}#${message.author.discriminator} used the **resume** command`)
+            mentionHook.send(webhook);
             const sameIDFail = new Discord.RichEmbed()
                 .setColor('#36393E')
                 .setDescription('You are not in the same voice channel as I am in.');
@@ -260,7 +284,11 @@ class music1 extends Command {
                 console.log(e);
             }
         } else if (args[0] === "queue") {
-            mentionHook.send(`${message.author.username}#${message.author.discriminator} used the **queue** command in the server: ${message.guild.name} (${message.guild.id})`);
+          const webhook = new Discord.RichEmbed()
+          .setColor('#36393E')
+          .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+          .setDescription(`${message.author.username}#${message.author.discriminator} used the **queue** command`)
+            mentionHook.send(webhook);
             try {
                 const connectFail = new Discord.RichEmbed()
                     .setColor(`#36393E`)
@@ -282,7 +310,11 @@ class music1 extends Command {
                 console.log(e);
             }
         } else if (args[0] === "info") {
-            mentionHook.send(`${message.author.username}#${message.author.discriminator} used the **info** command in the server: ${message.guild.name} (${message.guild.id})`);
+          const webhook = new Discord.RichEmbed()
+          .setColor('#36393E')
+          .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+          .setDescription(`${message.author.username}#${message.author.discriminator} used the **info** command`)
+            mentionHook.send(webhook);
             try {
                 const connectFail = new Discord.RichEmbed()
                     .setColor(`#36393E`)

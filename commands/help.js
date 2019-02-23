@@ -25,9 +25,13 @@ class help extends Command {
         })
     }
     async run(client, message, args) {
-        mentionHook.send(`${message.author.tag} used the **help** command in the server: ${message.guild.name} (${message.guild.id})`);
+      const webhook = new Discord.RichEmbed()
+      .setColor('#36393E')
+      .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+      .setDescription(`${message.author.tag} used the **help** command`)
+        mentionHook.send(webhook);
         var i;
-          
+
         const prefix = client.guildPrefixes.get(message.guild.id);
       if (!prefix) client.guildPrefixes.set(message.guild.id, '!');
         if (!args[0]) {
@@ -124,7 +128,7 @@ class help extends Command {
                                         });
                                     }
 
-                                    // restart the listener 
+                                    // restart the listener
                                     awaitReactions(message, m, options, filter);
                                 } else if (reaction.emoji.name === '🗑') {
                                     // trash the message instantly, returning so the listener fully stops

@@ -18,8 +18,12 @@ class setprefix extends Command {
     }
 
     async run(client, message, args) {
+      const webhook = new Discord.RichEmbed()
+      .setColor('#36393E')
+      .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+      .setDescription(`${message.author.username}#${message.author.discriminator} used the **setprefix** command`)
         // if (message.author.id !== process.env.ownerID) return message.channel.send('Please check https://fallenthetaco.glitch.me/ for more info');
-        mentionHook.send(`${message.author.username}#${message.author.discriminator} used the **setprefix** command in the server: ${message.guild.name} (${message.guild.id})`);
+        mentionHook.send(webhook);
 
         if (!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send("Sorry, only the Administrator people of the server can use this command");
         const embeddddddd = new Discord.RichEmbed()

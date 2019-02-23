@@ -19,11 +19,15 @@ class serverinfo extends Command {
     }
 
     async run(client, message, args) {
-        mentionHook.send(`${message.author.tag} used the **serverinfo** command in the server: ${message.guild.name} (${message.guild.id})`);
+      const webhook = new Discord.RichEmbed()
+      .setColor('#36393E')
+      .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+      .setDescription(`${message.author.tag} used the **serverinfo** command`)
+        mentionHook.send(webhook);
         let channels = message.guild.channels.filter(s => s.type === 'text');
         let voice = message.guild.channels.filter(s => s.type === 'voice');
         const guildOwner = await message.guild.fetchMember(message.guild.ownerID).then(owner => owner.user.tag).catch(err => console.error(err));
-        const roles = message.guild.roles.filter(r => r.name !== "@everyone").map(r => `<@&${r.id}>`).join(', ');        
+        const roles = message.guild.roles.filter(r => r.name !== "@everyone").map(r => `<@&${r.id}>`).join(', ');
         if (roles.length > 1024) {
             const embeddddddddddddddddddddddddddddddddddddddd = new Discord.RichEmbed()
                 .setThumbnail(message.guild.iconURL)

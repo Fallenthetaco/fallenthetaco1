@@ -20,7 +20,11 @@ class coinflip extends Command {
         })
     }
     async run(client, message, args) {
-        mentionHook.send(`${message.author.username}#${message.author.discriminator} used the **coinflip** command in the server: ${message.guild.name} (${message.guild.id})`);
+      const webhook = new Discord.RichEmbed()
+      .setColor('#36393E')
+      .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+      .setDescription(`${message.author.username}#${message.author.discriminator} used the **coinflip** command`)
+        mentionHook.send(webhook);
       const people = client.blocks.get('blacklist');
             if (people.includes(message.author.id)) return message.channel.send('You have been blacklisted from using economy commands.');
         let prefix = client.guildPrefixes.get(message.guild.id);
@@ -41,7 +45,7 @@ class coinflip extends Command {
                 .setColor(`#36393E`)
                 .setFooter(`${prefix}coinflip <amount> <heads or tails>`)
                 .setDescription('Please tell me if you chose heads or tails!');
-            if (!flip || !['heads', 'tails'].includes(flip)) return message.channel.send(embed); 
+            if (!flip || !['heads', 'tails'].includes(flip)) return message.channel.send(embed);
 
             eco.FetchBalance(message.author.id).then((i) => {
               const failAmount = new Discord.RichEmbed()

@@ -19,7 +19,11 @@ class goal extends Command {
         })
     }
     async run(client, message, args) {
-        mentionHook.send(`${message.author.username}#${message.author.discriminator} used the **goal** command in the server: ${message.guild.name} (${message.guild.id})`);
+      const webhook = new Discord.RichEmbed()
+      .setColor('#36393E')
+      .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+      .setDescription(`${message.author.username}#${message.author.discriminator} used the **goal** command`)
+        mentionHook.send(webhook);
         const servers = client.shard.fetchClientValues('guilds.size')
             .then(results => {
 

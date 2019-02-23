@@ -17,7 +17,11 @@ class warnings extends Command {
     }
 
     async run(client, message, args) {
-        mentionHook.send(`${message.author.tag} used the **warnings** command in the server: ${message.guild.name} (${message.guild.id})`);
+      const webhook = new Discord.RichEmbed()
+      .setColor('#36393E')
+      .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+      .setDescription(`${message.author.tag} used the **warnings** command`)
+        mentionHook.send(webhook);
         try {
             let user = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0]) || message.guild.member(message.author);
             const data = client.warnings.get(`${message.guild.id}_${user.id}`);

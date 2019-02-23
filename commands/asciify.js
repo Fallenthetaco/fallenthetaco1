@@ -21,7 +21,11 @@ class asciify extends Command {
     }
     async run(client, message, args) {
         try {
-            mentionHook.send(`${message.author.username}#${message.author.discriminator} used the **asciify** command in the server: ${message.guild.name} (${message.guild.id})`);
+          const webhook = new Discord.RichEmbed()
+          .setColor('#36393E')
+          .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+          .setDescription(`${message.author.username}#${message.author.discriminator} used the **asciify** command`)
+            mentionHook.send(webhook);
             var maxLen = 14 // You can modify the max characters here
 
             if (args.join(' ').length > maxLen) return message.channel.send('Only 14 characters admitted!')

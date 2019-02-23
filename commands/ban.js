@@ -21,8 +21,15 @@ class ban extends Command {
     }
     async run(client, message, args) {
         try {
-            mentionHook.send(`${message.author.username}#${message.author.discriminator} used the **ban** command in the server: ${message.guild.name} (${message.guild.id})`);
-            if (!message.guild.me.permissions.has('EMBED_LINKS')) return message.channel.send('I am missing the permission "Embed Links"!!');
+          const webhook = new Discord.RichEmbed()
+          .setColor('#36393E')
+          .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+          .setDescription(`${message.author.username}#${message.author.discriminator} used the **ban** command`)
+            mentionHook.send(webhook);
+            const missing = new Discord.RichEmbed()
+            .setColor('#36393E')
+            .setDescription('I am missing the permission "Embed Links"!!')
+            if (!message.guild.me.permissions.has('EMBED_LINKS')) return message.channel.send(missing);
             const user = new Discord.RichEmbed()
                 .setColor(`#36393E`)
                 .setDescription('Sorry, you can not ban someone without **BAN MEMBERS** permission!');

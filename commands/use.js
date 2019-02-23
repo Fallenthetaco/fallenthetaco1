@@ -10,17 +10,24 @@ class use extends Command {
     constructor() {
         super({
             name: 'use',
-            usage: '!use',
+            usage: '!use <item>',
             description: 'Use your powerups',
             aliases: ['u'],
             owner: false
         })
     }
     async run(client, message, args) {
-        mentionHook.send(`${message.author.tag} used the **use** command in the server: ${message.guild.name} (${message.guild.id})`);
+      const webhook = new Discord.RichEmbed()
+      .setColor('#36393E')
+      .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+      .setDescription(`${message.author.tag} used the **use** command`)
+        mentionHook.send(webhook);
       client.blocks.ensure('blacklist', []);
         const people = client.blocks.get('blacklist');
-        if (people.includes(message.author.id)) return message.channel.send('You have been blacklisted from using economy commands.');
+        const blacklisted = new Discord.RichEmbed()
+        .setColor('#36393E')
+        .setDescription(`<@${message.author.id}>, You have been blacklisted from using economy commands.`)
+        if (people.includes(message.author.id)) return message.channel.send(blacklisted);
         let powerup = client.powerups.ensure(message.author.id, {
             srirachas: 0,
             jalapenos: 0,
@@ -34,31 +41,64 @@ class use extends Command {
         var hours = new Date(usaTime).getHours();
         if (activate === 'srirachas') {
             let totals = powerups.srirachas - 1;
-            if (totals < 0) return message.channel.send('You don\'t have this much items.');
-            if (powerups.srirachas === 0) return message.channel.send('You do not have this item so you can\'t use it.');
+            const embed = new Discord.RichEmbed()
+            .setColor('#36393E')
+            .setDescription('You don\'t have this much items.');
+            if (totals < 0) return message.channel.send(embed);
+            const notEnough = new Discord.RichEmbed()
+            .setColor('#36393E')
+            .setDescription('You do not have this item so you can\'t use it.')
+            if (powerups.srirachas === 0) return message.channel.send(notEnough);
             var times2 = Math.floor(hours + 1);
-            
+
             client.powerups.dec(message.author.id, 'srirachas');
             client.activatePower.set(`${message.author.id}_srirachas`, times2);
-            message.channel.send('You have successfully used this powerup. It will make everything u get x3, and also will last for 1 hour, please use it wisely.');
+            const done = new Discord.RichEmbed()
+            .setColor('#36393E')
+            .setDescription('You have successfully used this powerup. It will make everything u get x3, and also will last for 1 hour, please use it wisely.')
+            message.channel.send(done);
+
         }  else if (activate === 'jalapenos') {
             let totals = powerups.jalapenos - 1;
-            if (totals < 0) return message.channel.send('You don\'t have this much items.');
-            if (powerups.jalapenos === 0) return message.channel.send('You do not have this item so you can\'t use it.');
+            const embed = new Discord.RichEmbed()
+            .setColor('#36393E')
+            .setDescription('You don\'t have this much items.');
+            if (totals < 0) return message.channel.send(embed);
+            const notEnough = new Discord.RichEmbed()
+            .setColor('#36393E')
+            .setDescription('You do not have this item so you can\'t use it.')
+            if (powerups.jalapenos === 0) return message.channel.send(notEnough);
             var times2 = Math.floor(hours + 1);
             client.activatePower.set(`${message.author.id}_jalapenos`, times2);
             client.powerups.dec(message.author.id, 'jalapenos');
-            message.channel.send('You have successfully used this powerup. It will make the amount of tacos u get x4, and also will last for 1 hour, please use it wisely.');
+            const done = new Discord.RichEmbed()
+            .setColor('#36393E')
+            .setDescription('You have successfully used this powerup. It will make the amount of tacos u get x4, and also will last for 1 hour, please use it wisely.')
+            message.channel.send(done);
+
         } else if (activate === 'salsas') {
             let totals = powerups.salsas - 1;
-            if (totals < 0) return message.channel.send('You don\'t have this much items.');
-            if (powerups.salsas === 0) return message.channel.send('You do not have this item so you can\'t use it.');
+            const embed = new Discord.RichEmbed()
+            .setColor('#36393E')
+            .setDescription('You don\'t have this much items.');
+            if (totals < 0) return message.channel.send(embed);
+            const notEnough = new Discord.RichEmbed()
+            .setColor('#36393E')
+            .setDescription('You do not have this item so you can\'t use it.')
+            if (powerups.salsas === 0) return message.channel.send(notEnough);
             var times2 = Math.floor(hours + 1);
             client.activatePower.set(`${message.author.id}_salsas`, times2);
             client.powerups.dec(message.author.id, 'salsas');
-            message.channel.send('You have successfully used this powerup. It will make everything u get x2, and also will last for 1 hours, please use it wisely.');
+            const done = new Discord.RichEmbed()
+            .setColor('#36393E')
+            .setDescription('You have successfully used this powerup. It will make everything u get x2, and also will last for 1 hours, please use it wisely.')
+            message.channel.send(done);
         } else {
-            message.channel.send('Please choose between `salsas`, `jalapenos`, `srirachas`.');
+          const fail = new Discord.RichEmbed()
+          .setColor('#36393E')
+          .setFooter('Usage: !use <item>')
+          .setDescription(`<@${message.author.id}>, Please choose between **salsas**, **jalapenos**, **srirachas**.`)
+            message.channel.send(fail);
         }
     }
 }

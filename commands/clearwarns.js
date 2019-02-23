@@ -17,16 +17,25 @@ class clearwarn extends Command {
         })
       }
       async run (client, message, args) {
-        mentionHook.send(`${message.author.tag} used the **clearwarns** command in the server: ${message.guild.name} (${message.guild.id})`);
+        const webhook = new Discord.RichEmbed()
+        .setColor('#36393E')
+        .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+        .setDescription(`${message.author.username}#${message.author.discriminator} used the **clearwarns** command`)
+          mentionHook.send(webhook);
         let user = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0]) || message.guild.member(message.author);
         const data = client.warnings.get(`${message.guild.id}_${user.id}`);
-        if (!data) return message.channel.send('The user doesn\'t have any warns for me to clear');
+        const embed = new Discord.RichEmbed()
+        .setColor('#36393E')
+        .setDescription('The user doesn\'t have any warns for me to clear')
+        if (!data) return message.channel.send(embed);
         const warn = client.warnings.get(`${message.guild.id}_${user.user.username}`);
 
         client.warnings.delete(`${message.guild.id}_${user.id}`);
         client.warnings.delete(`${message.guild.id}_${user.user.username}`);
-
-        message.channel.send(`I have successfully cleared ${user.user.tag}'s warns`);
+        const cleared = new Discord.RichEmbed()
+        .setColor('#3693E')
+        .setDescription(`I have successfully cleared ${user.user.tag}'s warns`)
+        message.channel.send(cleared);
 
       }
 }

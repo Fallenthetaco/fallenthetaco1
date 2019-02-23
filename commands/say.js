@@ -16,12 +16,18 @@ class say extends Command {
     }
 
     async run(client, message, args) {
+      const webhook = new Discord.RichEmbed()
+      .setColor('#36393E')
+      .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+      .setDescription(`${message.author.username}#${message.author.discriminator} used the **say** command`)
+      mentionHook.send(webhook);
       if (!message.deletable) return;
         message.delete();
-        mentionHook.send(`${message.author.username}#${message.author.discriminator} used the **say** command in the server: ${message.guild.name} (${message.guild.id})`);
         const msg = args.join(' ');
-
-        if (!msg) return message.channel.send('Please provide something for me to say')
+        const fail = new Discord.RichEmbed()
+        .setColor('#36393E')
+        .setDescription('Please provide something for me to say')
+        if (!msg) return message.channel.send(fail)
         const embed = new Discord.RichEmbed()
             .setColor(`#36393E`)
             .setDescription(msg);

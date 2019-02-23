@@ -19,12 +19,23 @@ class Delete extends Command {
         })
     }
     async run(client, message, args) {
+      const webhook = new Discord.RichEmbed()
+      .setColor('#36393E')
+      .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+      .setDescription(`${message.author.username}#${message.author.discriminator} used the **delete** command`)
+        mentionHook.send(webhook);
             if (client.blocks.has('blacklist', message.author.id)) return message.channel.send('You have been blacklisted from using economy commands.');
         if (args[0] === 'confirm') {
             eco.Delete(message.author.id);
-            message.channel.send('I have successfully deleted your account');
+            const deleted = new Discord.RichEmbed()
+            .setColor('#36393E')
+            .setDescription('I have successfully deleted your account')
+            message.channel.send(deleted);
         } else {
-            message.channel.send('Please do `!delete confirm` to delete your account from the database')
+          const not = new Discord.RichEmbed()
+          .setColor('#36393E')
+          .setDescription('Please do `!delete confirm` to delete your account from the database')
+            message.channel.send(not)
 
         }
     }

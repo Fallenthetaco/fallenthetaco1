@@ -17,7 +17,11 @@ class tacos extends Command {
     }
 
     async run(client, message, args) {
-        mentionHook.send(`${message.author.username}#${message.author.discriminator} used the **tacos** command in the server: ${message.guild.name} (${message.guild.id})`);
+      const webhook = new Discord.RichEmbed()
+      .setColor('#36393E')
+      .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+      .setDescription(`${message.author.username}#${message.author.discriminator} used the **tacos** command`)
+        mentionHook.send(webhook);
         randomPuppy('tacos')
             .then(url => {
                 const embed = new Discord.RichEmbed()

@@ -22,7 +22,11 @@ class lock extends Command {
 
     async run(client, message, args) {
         try {
-            mentionHook.send(`${message.author.username}#${message.author.discriminator} used the **lock** command in the server: ${message.guild.name} (${message.guild.id})`);
+          const webhook = new Discord.RichEmbed()
+          .setColor('#36393E')
+          .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+          .setDescription(`${message.author.username}#${message.author.discriminator} used the **lock** command`)
+            mentionHook.send(webhook);
             const memberFail = new Discord.RichEmbed()
                 .setColor(`#36393E`)
                 .setDescription('You do not have the permission **Manage Channels** to use this command')

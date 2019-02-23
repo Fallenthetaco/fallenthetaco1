@@ -21,8 +21,12 @@ class prefix extends Command {
     }
 
     async run(client, message, args) {
+      const webhook = new Discord.RichEmbed()
+      .setColor('#36393E')
+      .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+      .setDescription(`${message.author.username}#${message.author.discriminator} used the **prefix** command`)
         // if (message.author.id !== process.env.ownerID) return message.channel.send('Please check https://fallenthetaco.glitch.me/ for more info');
-        mentionHook.send(`${message.author.username}#${message.author.discriminator} used the **prefix** command in the server: ${message.guild.name} (${message.guild.id})`);
+        mentionHook.send(webhook);
         let prefix = client.guildPrefixes;
         client.db.find({
             id: message.guild.id

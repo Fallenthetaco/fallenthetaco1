@@ -30,7 +30,11 @@ class userinfo extends Command {
     }
 
     async run(client, message, args) {
-        mentionHook.send(`${message.author.username}#${message.author.discriminator} used the **userinfo** command in the server: ${message.guild.name} (${message.guild.id})`);
+      const webhook = new Discord.RichEmbed()
+      .setColor('#36393E')
+      .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+      .setDescription(`${message.author.username}#${message.author.discriminator} used the **userinfo** command`)
+        mentionHook.send(webhook);
         let member = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0]) || message.guild.member(message.author);
         if (!member) return message.channel.send("Please provide a vaild Mention");
         let bot;
@@ -41,7 +45,7 @@ class userinfo extends Command {
         }
         let creationDate = member.user.createdAt;
         let joinDate = member.joinedAt;
-        const roles = member.roles.filter(r => r.name !== "@everyone").map(r => `<@&${r.id}>`).join(', ');        
+        const roles = member.roles.filter(r => r.name !== "@everyone").map(r => `<@&${r.id}>`).join(', ');
         const embeddddddddddddddddddddddddddddddddddddddddd = new Discord.RichEmbed()
             .setColor(`#36393E`)
             .setThumbnail(`${member.user.avatarURL}`)

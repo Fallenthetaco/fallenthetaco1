@@ -25,7 +25,11 @@ class fortnite extends Command {
     }
 
     async run(client, message, args) {
-        mentionHook.send(`${message.author.username}#${message.author.discriminator} used the **fortnite** command in the server: ${message.guild.name} (${message.guild.id})`);
+      const webhook = new Discord.RichEmbed()
+      .setColor('#36393E')
+      .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+      .setDescription(`${message.author.username}#${message.author.discriminator} used the **fortnite** command`)
+        mentionHook.send(webhook);
         const platform = args[0];
         const platformFail = new Discord.RichEmbed()
             .setColor('#36393E')

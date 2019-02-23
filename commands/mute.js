@@ -22,7 +22,11 @@ class mute extends Command {
 
     async run(client, message, args) {
         try {
-            mentionHook.send(`${message.author.username}#${message.author.discriminator} used the **mute** command in the server: ${message.guild.name} (${message.guild.id})`);
+          const webhook = new Discord.RichEmbed()
+          .setColor('#36393E')
+          .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+          .setDescription(`${message.author.username}#${message.author.discriminator} used the **mute** command`)
+            mentionHook.send(webhook);
             if (!message.member.hasPermission('MANAGE_ROLES')) return message.channel.send('You do not have the permission **Manage Roles** to use this command');
             const embeddddddd = new Discord.RichEmbed()
                 .setColor(`#36393E`)
@@ -79,7 +83,10 @@ class mute extends Command {
             const DMmute = new Discord.RichEmbed()
                 .setColor(`#36393E`)
                 .setDescription(`You have been muted in **${message.guild.name}**`)
-            toMute.send(DMmute).catch(message.channel.send('Since the user\'s DMs are blocked, he/she is muted from this server.'));
+            const failed = new Discord.RichEmbed()
+            .setColor('#36393E')
+            .setDescription('Since the user\'s DMs are blocked, he/she is muted from this server.')
+            toMute.send(DMmute).catch(message.channel.send(failed));
 
         } catch (e) {
             const embed = new Discord.RichEmbed()

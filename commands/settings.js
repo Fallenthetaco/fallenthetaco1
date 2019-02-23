@@ -16,7 +16,11 @@ class settings extends Command {
     }
 
     async run(client, message, args) {
-        mentionHook.send(`${message.author.username}#${message.author.discriminator} used the **settings** command in the server: ${message.guild.name} (${message.guild.id})`);
+      const webhook = new Discord.RichEmbed()
+      .setColor('#36393E')
+      .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+      .setDescription(`${message.author.username}#${message.author.discriminator} used the **settings** command`)
+        mentionHook.send(webhook);
         if (!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send("Sorry, only the Administrator people of the server can use this command");
         if (args[0] === "channel") {
             client.channel.ensure(message.guild.id, ``);

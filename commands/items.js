@@ -18,7 +18,11 @@ class items extends Command {
         })
     }
     async run(client, message, args) {
-        mentionHook.send(`${message.author.tag} used the **items** command in the server: ${message.guild.name} (${message.guild.id})`);
+      const webhook = new Discord.RichEmbed()
+      .setColor('#36393E')
+      .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+      .setDescription(`${message.author.tag} used the **items** command`)
+        mentionHook.send(webhook);
       client.blocks.ensure('blacklist', []);
       let people = client.blocks.get('blacklist');
       if (people.includes(message.author.id)) return message.channel.send('You have been blacklisted from using economy commands.');

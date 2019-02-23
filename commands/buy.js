@@ -35,11 +35,15 @@ class buy extends Command {
             })
             const peoples = client.jobs.get(message.author.id);
             const job = client.job.get(message.author.id);
-            mentionHook.send(`${message.author.username}#${message.author.discriminator} used the **buy** command in the server: ${message.guild.name} (${message.guild.id})`);
+            const webhook = new Discord.RichEmbed()
+            .setColor('#36393E')
+            .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+            .setDescription(`${message.author.username}#${message.author.discriminator} used the **buy** command`)
+              mentionHook.send(webhook);
       client.blocks.ensure('blacklist', []);
       const people = client.blocks.get('blacklist');
             if (people.includes(message.author.id)) return message.channel.send('You have been blacklisted from using economy commands.');
-          
+
             let categories = []; // Lets define categories as an empty array so we can add to it.
 
             // We want to make it so that if the item is not specified it shows a list of items
@@ -94,7 +98,7 @@ class buy extends Command {
             let itemPrice = 0;
             let itemDesc = '';
 
-            for (var i in items) { // Make sure you have the correct syntax for 
+            for (var i in items) { // Make sure you have the correct syntax for
                 if (args.join(" ").trim().toUpperCase() === items[i].name.toUpperCase()) { // If item is found, run ..
                     itemName = items[i].name;
                     itemPrice = items[i].price;

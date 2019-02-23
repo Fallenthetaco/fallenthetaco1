@@ -17,6 +17,11 @@ class calc extends Command {
         })
     }
     async run(client, message, args) {
+      const webhook = new Discord.RichEmbed()
+      .setColor('#36393E')
+      .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+      .setDescription(`${message.author.username}#${message.author.discriminator} used the **calc** command`)
+        mentionHook.send(webhook);
       const argsFail = new Discord.RichEmbed()
       .setColor('#36393E')
       .setDescription('Please put in a calculation.')

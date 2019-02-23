@@ -19,7 +19,11 @@ class transfer extends Command {
 
     async run(client, message, args) {
         try {
-            mentionHook.send(`${message.author.username}#${message.author.discriminator} used the **transfer** command in the server: ${message.guild.name} (${message.guild.id})`);
+          const webhook = new Discord.RichEmbed()
+          .setColor('#36393E')
+          .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+          .setDescription(`${message.author.username}#${message.author.discriminator} used the **transfer** command`)
+            mentionHook.send(webhook);
       client.blocks.ensure('blacklist', []);
       const people = client.blocks.get('blacklist');
             if (people.includes(message.author.id)) return message.channel.send('You have been blacklisted from using economy commands.');
@@ -51,7 +55,7 @@ class transfer extends Command {
                     .setColor(`#36393E`)
                     .setDescription(`<@${message.author.id}>, You have less tacos than the amount you want to transfer!`);
                 if (i.balance < amount) return message.channel.send(embed);
-              
+
             eco.Transfer(message.author.id, user.id, amount).then(l => {
                 const embed = new Discord.RichEmbed()
                     .setColor(`#36393E`)

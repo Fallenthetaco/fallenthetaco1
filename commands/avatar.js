@@ -22,11 +22,21 @@ class avatar extends Command {
 
     async run(client, message, args) {
         try {
-            mentionHook.send(`${message.author.username}#${message.author.discriminator} used the **avatar** command in the server: ${message.guild.name} (${message.guild.id})`);
+          const webhook = new Discord.RichEmbed()
+          .setColor('#36393E')
+          .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+          .setDescription(`${message.author.username}#${message.author.discriminator} used the **avatar** command`)
+            mentionHook.send(webhook);
 
             let member = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0]) || message.guild.member(message.author);
-            if (!message.guild.me.permissions.has('ATTACH_FILES')) return message.channel.send('I am missing the permission "Attach Files"!!');
-            if (!message.guild.me.permissions.has('EMBED_LINKS')) return message.channel.send('I am missing the permission "Embed Links"!!');
+            const missing = new Discord.RichEmbed()
+            .setColor('#36393E')
+            .setDescription('I am missing the permission "Attach Files"!!')
+            if (!message.guild.me.permissions.has('ATTACH_FILES')) return message.channel.send(missing);
+            const missing = new Discord.RichEmbed()
+            .setColor('#36393E')
+            .setDescription('I am missing the permission "Embed Links"!!')
+            if (!message.guild.me.permissions.has('EMBED_LINKS')) return message.channel.send(missing);
             let mess = await message.channel.send("Loading image...");
             const embed = new Discord.RichEmbed()
                 .setImage(`${member.user.avatarURL}`)

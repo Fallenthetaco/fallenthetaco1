@@ -21,10 +21,20 @@ class listemoji extends Command {
 
     async run(client, message, args) {
         try {
-            mentionHook.send(`${message.author.username}#${message.author.discriminator} used the **listemoji** command in the server: ${message.guild.name} (${message.guild.id})`);
+          const webhook = new Discord.RichEmbed()
+          .setColor('#36393E')
+          .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+          .setDescription(`${message.author.username}#${message.author.discriminator} used the **listemoji** command`)
+            mentionHook.send(webhook);
             const emojiList = message.guild.emojis.map(e => e.toString()).join(" ");
-            if (!emojiList) return message.channel.send('You dont have any custom emojis in this server.')
-            message.channel.send(`Here are all of the custom emojis of this server: ${emojiList}`);
+            const rip = new Discord.RichEmbed()
+            .setColor('#36393E')
+            .setDescription('You dont have any custom emojis in this server.')
+            if (!emojiList) return message.channel.send(rip);
+            const emojis = new Discord.RichEmbed()
+            .setColor('#36393E')
+            .setDescription(`Here are all of the custom emojis of this server: ${emojiList}`)
+            message.channel.send(emojis);
         } catch (e) {
             const embed = new Discord.RichEmbed()
                 .setColor(`#36393E`)

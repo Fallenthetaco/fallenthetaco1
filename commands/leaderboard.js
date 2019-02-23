@@ -21,16 +21,23 @@ class leaderboard extends Command {
     }
     async run(client, message, args) {
         try {
-            mentionHook.send(`${message.author.username}#${message.author.discriminator} used the **leaderboard** command in the server: ${message.guild.name} (${message.guild.id})`);
+          const webhook = new Discord.RichEmbed()
+          .setColor('#36393E')
+          .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+          .setDescription(`${message.author.username}#${message.author.discriminator} used the **leaderboard** command`)
+            mentionHook.send(webhook);
       const people = client.blocks.get('blacklist');
             if (people.includes(message.author.id)) return message.channel.send('You have been blacklisted from using economy commands.');
-          
+
             if (message.mentions.users.last()) {
 
                 eco.Leaderboard({
                     search: message.mentions.users.first().id
                 }).then(l => {
-                    message.channel.send(`The user ${message.mentions.users.last().tag} is number ${l} on my leaderboard!`);
+                  const find = new Discord.RichEmbed()
+                  .setColor('#36393E')
+                  .setDescription(`The user ${message.mentions.users.last().tag} is number ${l} on my leaderboard!`)
+                    message.channel.send(find);
                 })
 
                 //Searches for the top 3 and outputs it to the user.

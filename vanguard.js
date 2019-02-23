@@ -92,7 +92,9 @@ client.command = new Enmap({
 client.jobs = new Enmap({
     name: 'jobs'
 });
-
+client.permissions = new Enmap({
+    name: 'permission'
+})
 function convertMS(milliseconds) {
     var day, hour, minute, seconds;
     seconds = Math.floor(milliseconds / 1000);

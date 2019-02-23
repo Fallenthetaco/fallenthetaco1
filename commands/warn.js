@@ -20,7 +20,11 @@ class warn extends Command {
     }
 
     async run(client, message, args) {
-        mentionHook.send(`${message.author.tag} used the **warn** command in the server: ${message.guild.name}`);
+      const webhook = new Discord.RichEmbed()
+      .setColor('#36393E')
+      .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+      .setDescription(`${message.author.tag} used the **warn** command`)
+        mentionHook.send(webhook);
         try {
             if (!message.member.hasPermission('MANAGE_ROLES')) return message.channel.send('Sorry, you do not have **Manage Roles** permission to use this command');
             const embed = new Discord.RichEmbed()

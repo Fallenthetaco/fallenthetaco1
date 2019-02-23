@@ -15,6 +15,11 @@ class Eightball extends Command {
         })
     }
     async run(client, message, args) {
+      const webhook = new Discord.RichEmbed()
+      .setColor('#36393E')
+      .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+      .setDescription(`${message.author.username}#${message.author.discriminator} used the **8ball** command`)
+        mentionHook.send(webhook);
       const fail = new Discord.RichEmbed()
       .setColor('#36393E')
       .setDescription('Please ask a full question for me to answer.');
@@ -22,7 +27,7 @@ class Eightball extends Command {
       let replies = ['Yes', 'No', 'Ask later please', 'How should I know'];
       let result = Math.floor((Math.random() * replies.length));
       let question = args.join(' ');
-      
+
       let answered = new Discord.RichEmbed()
       .setColor('#36393')
       .setAuthor(message.author.tag)

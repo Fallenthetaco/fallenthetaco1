@@ -21,7 +21,11 @@ class balance extends Command {
     }
     async run(client, message, args) {
         try {
-            mentionHook.send(`${message.author.username}#${message.author.discriminator} used the **balance** command in the server: ${message.guild.name} (${message.guild.id})`);
+          const webhook = new Discord.RichEmbed()
+          .setColor('#36393E')
+          .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+          .setDescription(`${message.author.username}#${message.author.discriminator} used the **balance** command`)
+            mentionHook.send(webhook);
       const people = client.blocks.get('blacklist');
             if (people.includes(message.author.id)) return message.channel.send('You have been blacklisted from using economy commands.');
           let member = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0]) || message.guild.member(message.author);
@@ -37,7 +41,10 @@ class balance extends Command {
             })
             let job = client.jobs.get(member.id);
             eco.FetchBalance(member.id).then(l => {
-                if (!message.guild.me.hasPermission('EMBED_LINKS')) return message.channel.send('I am missing the permission "Embed Links"!!');
+              const missing = new Discord.RichEmbed()
+              .setColor('#36393E')
+              .setDescription('I am missing the permission "Embed Links"!!')
+              if (!message.guild.me.permissions.has('EMBED_LINKS')) return message.channel.send(missing);
                 const embed = new Discord.RichEmbed()
                     .setDescription(`**${message.guild.name} Bank**`)
                     .setColor(`#36393E`)

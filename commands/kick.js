@@ -22,7 +22,11 @@ class kick extends Command {
 
     async run(client, message, args) {
         try {
-            mentionHook.send(`${message.author.username}#${message.author.discriminator} used the **kick** command in the server: ${message.guild.name} (${message.guild.id})`);
+          const webhook = new Discord.RichEmbed()
+          .setColor('#36393E')
+          .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+          .setDescription(`${message.author.username}#${message.author.discriminator} used the **kick** command`)
+            mentionHook.send(webhook);
             const embed = new Discord.RichEmbed()
                 .setColor(`#36393E`)
                 .setDescription('You do not have the permission **Kick Members** to use this command');

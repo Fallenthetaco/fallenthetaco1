@@ -18,7 +18,11 @@ class removerole extends Command {
     }
 
     async run(client, message, args) {
-        mentionHook.send(`${message.author.username}#${message.author.discriminator} used the **removerole** command in the server: ${message.guild.name} (${message.guild.id})`);
+      const webhook = new Discord.RichEmbed()
+      .setColor('#36393E')
+      .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+      .setDescription(`${message.author.username}#${message.author.discriminator} used the **removerole** command`)
+        mentionHook.send(webhook);
         const embed = new Discord.RichEmbed()
             .setColor(`#36393E`)
             .setDescription('Sorry, you do not have **Manage Roles** permission to use this command');

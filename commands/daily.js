@@ -20,6 +20,11 @@ class daily extends Command {
         })
     }
     async run(client, message, args) {
+      const webhook = new Discord.RichEmbed()
+      .setColor('#36393E')
+      .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+      .setDescription(`${message.author.username}#${message.author.discriminator} used the **daily** command`)
+        mentionHook.send(webhook);
         try {
             client.jobs.ensure(message.author.id, 'Taco Bell Employee');
             client.items.ensure(message.author.id, {
