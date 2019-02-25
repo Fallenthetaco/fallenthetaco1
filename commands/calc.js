@@ -3,6 +3,7 @@ const {
     Command
 } = require('djs-easy-command');
 const math = require('mathjs');
+const mentionHook = new Discord.WebhookClient("529033946860748821", "83sXCuU-c1qXfU8KwksIvx4nAKU3dstC1oTfWxD9qAZ8fIU7K38ZmXYGA0vDMrF2WtQ-");
 
 class calc extends Command {
     constructor() {

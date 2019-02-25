@@ -20,8 +20,6 @@ const cooldown = new Set();
 let cdseconds = 5;
 const db = require('quick.db');
 var schedule = require('node-schedule');
-const delapi = require("discordextremelist-api")
-const del = new delapi("436047056394649600", "8020ef9d960ef3692a9066f1397104fa21d8813954397e8c926cf8a018832b521fecef048f4455d6ffa9a246d286b29fb4aa00459da762a668d7674dfc7c6af8");
 
 const createHash = require('hash-generator');
 const swearWords = ['gay', 'Gay', 'GAY', 'fuck', 'Fuck', 'FUck', 'FUCK', 'Fuk', 'Fuckers', 'G A E', 'gae', 'Gae', 'G A Y', 'GaY', 'GAE', 'GAy', 'gAy', 'gAY', 'lesbian', 'Lesbian', 'LESBIAN', 'LEsbian', 'LESbian', 'LESBian', 'LESBIan', 'LESBIAn', 'LESBIAN'];
@@ -94,6 +92,9 @@ client.jobs = new Enmap({
 });
 client.permissions = new Enmap({
     name: 'permission'
+});
+client.fortnite = new Enmap({
+    name: 'fortniteUsers'
 })
 function convertMS(milliseconds) {
     var day, hour, minute, seconds;
@@ -626,11 +627,6 @@ const handleReady = (message) => {
         .then(user => {
             const servers = client.shard.fetchClientValues('guilds.size')
                 .then(results => {
-                    del.updateCount(results.reduce((prev, val) => prev + val, 0)).then(() => {
-                        console.log("Successfully updated your bot's server count!");
-                    }).catch((e) => {
-                        console.error(e);
-                    });
                     const blapi = require('blapi')
                     blapi.handle(client, {
                         'discordsbestbots.xyz': 'a9969a8272683529ac6397b6f94e4bc9d9ceb5ba'

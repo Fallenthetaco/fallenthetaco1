@@ -36,7 +36,6 @@ class daily extends Command {
                 quesadillas: 0
             })
             const jobs = client.jobs.get(message.author.id);
-            mentionHook.send(`${message.author.username}#${message.author.discriminator} used the **daily** command in the server: ${message.guild.name} (${message.guild.id})`);
       const people = client.blocks.get('blacklist');
             if (people.includes(message.author.id)) return message.channel.send('You have been blacklisted from using economy commands.');
             eco.Daily(message.author.id).then(l => {

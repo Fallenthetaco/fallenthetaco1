@@ -22,7 +22,10 @@ class prune extends Command {
       .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
       .setDescription(`${message.author.username}#${message.author.discriminator} used the **prune** command`)
         mentionHook.send(webhook); // This sends how many messages they deleted to chat, we also want to delete this message. This deletes the message after 10000 milliseconds.
-        if (!message.member.hasPermission('MANAGE_MESSAGES')) return message.channel.send('You do not have the permission **Manage Messages** to use this command');
+        const fail = new Discord.RichEmbed()
+        .setColor('#36393E')
+        .setDescription('You do not have the permission **Manage Messages** to use this command')
+        if (!message.member.hasPermission('MANAGE_MESSAGES')) return message.channel.send(fail);
 
 
         // This checks if args[0] is NOT a number, if not it runs the return statement which sends a message in chat.

@@ -21,8 +21,9 @@ class say extends Command {
       .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
       .setDescription(`${message.author.username}#${message.author.discriminator} used the **say** command`)
       mentionHook.send(webhook);
-      if (!message.deletable) return;
+      if (message.deletable) {
         message.delete();
+      }
         const msg = args.join(' ');
         const fail = new Discord.RichEmbed()
         .setColor('#36393E')
