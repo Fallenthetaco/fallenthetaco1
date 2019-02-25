@@ -158,7 +158,6 @@ class help extends Command {
           let commands = client.commands.get(command);
           if (commands) {
                 command = client.commands.get(command);
-            console.log(command);
                 const embed = new Discord.RichEmbed()
                     .setAuthor(`${command.name} Command`)
                     .setColor('RANDOM')
