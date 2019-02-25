@@ -72,7 +72,7 @@ class botinfo extends Command {
                                 .addField('Total Commands', client.commands.size, true)
                                 .addField('Total Members', `${user.reduce((prev, val) => prev + val, 0)}`, true)
                                 .addField('Developers', '`FallenTaco#6666`\n`Brogame#4115`', true)
-                                .addField('Version', 'v2.0', true)
+                                .addField('Version', 'v2.1', true)
                                 .addField('CPU', model, true)
                                 .addField('RAM Usage (Broken)', `${RamUsages} MB / ${RamTotal} MB`, true)
                                 .addField('heapTotal:', `${heaapTotal} MB`, true)

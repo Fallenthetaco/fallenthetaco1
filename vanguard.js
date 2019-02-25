@@ -270,14 +270,20 @@ const handleGuildMemberAdd = async (member) => {
 }
 const handleGuildCreate = async (guild) => {
     client.guildPrefixes.set(guild.id, '!');
-    mentionHook.send(`I have been added to the server: **${guild.name}** (${guild.id}), Owned by: **${guild.owner.user.tag}**, with ${guild.members.filter(member => !member.user.bot).size} members and ${guild.members.filter(member => member.user.bot).size} bots at ${new Date()}`);
+    const embed = new Discord.RichEmbed()
+    .setColor('#36393E')
+    .setDescription(`I have been added to the server: **${guild.name}** (${guild.id}), Owned by: **${guild.owner.user.tag}**, with ${guild.members.filter(member => !member.user.bot).size} members and ${guild.members.filter(member => member.user.bot).size} bots at ${new Date()}`)
+    mentionHook.send(embed);
     console.log(`I have been added to the server: ${guild.name}, Owned by: ${guild.owner.user.tag}, with ${guild.members.filter(member => !member.user.bot).size} members`);
     const role = guild.roles.find(x => x.name === client.user.username);
     if (!role) return;
     role.setColor('#36393E')
 };
 const handleGuildDelete = (guild) => {
-    mentionHook.send(`I have left the server **${guild.name}** (${guild.id}) at **${new Date()}**`);
+  const embed = new Discord.RichEmbed()
+  .setColor('#36393E')
+  .setDescription(`I have left the server **${guild.name}** (${guild.id}) at **${new Date()}**`)
+    mentionHook.send(embed);
     console.log(`I have left ${guild.name} at ${new Date()}`);
     // client.db.delete(guild.id);
 };
