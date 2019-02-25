@@ -509,26 +509,24 @@ const handleMessage = async (message) => {
     }
     if (message.content.startsWith('!generate')) {
         if (message.author.id !== ownerID) return message.channel.send('You are not the owner of this bot!!');
+        client.keys365.ensure('keys365', []);
+        client.keys180.ensure('keys180', []);
         const gen = args[1];
         if (!gen) return message.channel.send('Is it 365 or 180 days?')
         if (gen === '365') {
             var hash = createHash(16);
-            client.keys365.ensure('keys365', []);
             client.keys365.push('keys365', `${hash}`)
-            console.log(client.keys365)
             const embed = new Discord.RichEmbed()
                 .setColor('#36393E')
                 .setDescription(hash)
-            message.channel.send(embed);
+            message.author.send(embed);
         } else if (gen === '180') {
             var hash = createHash(16);
-            client.keys180.ensure('keys180', []);
             client.keys180.push('keys180', `${hash}`)
-            console.log(client.keys180)
             const embed = new Discord.RichEmbed()
                 .setColor('#36393E')
                 .setDescription(hash)
-            message.channel.send(embed);
+            message.author.send(embed);
         } else return message.channel.send('Is it 365 or 180 days?');
     }
     var parts = message.content.split(' ');
