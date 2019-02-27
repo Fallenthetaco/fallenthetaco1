@@ -25,85 +25,85 @@ class fortnite extends Command {
     }
 
     async run(client, message, args) {
-      const webhook = new Discord.RichEmbed()
-      .setColor('#36393E')
-      .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
-      .setDescription(`${message.author.username}#${message.author.discriminator} used the **fortnite** command`)
+        const webhook = new Discord.RichEmbed()
+            .setColor('#36393E')
+            .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+            .setDescription(`${message.author.username}#${message.author.discriminator} used the **fortnite** command`)
         mentionHook.send(webhook);
         if (args[0] === 'link') {
-          const linked = new Discord.RichEmbed()
-          .setColor('#36393E')
-          .setDescription(`You have already linked your account. In order to unlink you have to do ${client.guildPrefixes.get(message.guild.id)}fortnite unlink`)
-          if (client.fortnite.get(message.author.id)) return message.channel.send(linked);
-          const platforms = args[1];
-          const embed = new Discord.RichEmbed()
-          .setColor('#36393E')
-          .setFooter(`Usage: ${client.guildPrefixes.get(message.guild.id)}fortnite link (platform) (user)`)
-          .setDescription("You must provide your platform (pc, xbl, psn)")
-          if (platforms !== "pc" && platforms !== "psn" && platforms !== "xbl") return message.channel.send(embed);
-          const player = args.slice(2).join(' ');
-          const noPlayer = new Discord.RichEmbed()
-          .setColor('#36393E')
-          .setFooter(`Usage: ${client.guildPrefixes.get(message.guild.id)}fortnite link (platform) (user)`)
-          .setDescription('You must provide the username for me to link')
-          if (!player) return message.channel.send(noPlayer);
-          const results = fetch(`https://api.fortnitetracker.com/v1/profile/${platforms}/${player}`, headers)
-          const failed = new Discord.RichEmbed()
-              .setColor('#36393E')
-              .setDescription('Can not find this user in the database!!')
-          if (!results) return message.channel.send(failed);
-          client.fortnite.set(message.author.id, {username: player, platform: platforms});
-          const success = new Discord.RichEmbed()
-          .setColor('#36393E')
-          .setDescription('I have successfully linked your account with this player.')
-          return message.channel.send(success)
+            const linked = new Discord.RichEmbed()
+                .setColor('#36393E')
+                .setDescription(`You have already linked your account. In order to unlink you have to do ${client.guildPrefixes.get(message.guild.id)}fortnite unlink`)
+            if (client.fortnite.get(message.author.id)) return message.channel.send(linked);
+            const platforms = args[1];
+            const embed = new Discord.RichEmbed()
+                .setColor('#36393E')
+                .setFooter(`Usage: ${client.guildPrefixes.get(message.guild.id)}fortnite link (platform) (user)`)
+                .setDescription("You must provide your platform (pc, xbl, psn)")
+            if (platforms !== "pc" && platforms !== "psn" && platforms !== "xbl") return message.channel.send(embed);
+            const player = args.slice(2).join(' ');
+            const noPlayer = new Discord.RichEmbed()
+                .setColor('#36393E')
+                .setFooter(`Usage: ${client.guildPrefixes.get(message.guild.id)}fortnite link (platform) (user)`)
+                .setDescription('You must provide the username for me to link')
+            if (!player) return message.channel.send(noPlayer);
+            let results;
+            fetch(`https://api.fortnitetracker.com/v1/profile/${platforms}/${player}`, headers).then(data => { results = data.json(); }).catch(err => console.log(err.stack));
+            client.fortnite.set(message.author.id, {
+                username: player,
+                platform: platforms
+            });
+            const success = new Discord.RichEmbed()
+                .setColor('#36393E')
+                .setDescription('I have successfully linked your account with this player.')
+            return message.channel.send(success)
         }
         if (args[0] === 'unlink') {
-          const embed = new Discord.RichEmbed()
-          .setColor('#36393E')
-          .setDescription('You have already unlinked your username with your account')
-          if (!client.fortnite.get(message.author.id)) return message.channel.send(embed);
-          client.fortnite.delete(message.author.id);
-          const done = new Discord.RichEmbed()
-          .setColor('#36393E')
-          .setDescription('I have successfully unlinked your account with the player.')
-        return message.channel.send(done);
+            const embed = new Discord.RichEmbed()
+                .setColor('#36393E')
+                .setDescription('You have already unlinked your username with your account')
+            if (!client.fortnite.get(message.author.id)) return message.channel.send(embed);
+            client.fortnite.delete(message.author.id);
+            const done = new Discord.RichEmbed()
+                .setColor('#36393E')
+                .setDescription('I have successfully unlinked your account with the player.')
+            return message.channel.send(done);
         }
         const saved = client.fortnite.get(message.author.id);
         if (saved) {
-          const user = saved.username;
-          const platform = saved.platform;
-          const results = fetch(`https://api.fortnitetracker.com/v1/profile/${platform}/${user}`, headers).then(data => data.json()).then(json => {
-              const data = json.lifeTimeStats
-              const score = data[6].value;
-              const matchesPlayeds = data[7].value;
-              const matchesPlayed = Number(matchesPlayeds).toLocaleString();
-              const winss = data[8].value;
-              const wins = Number(winss).toLocaleString()
-              const winP = data[9].value;
-              const killss = data[10].value;
-              const kills = Number(killss).toLocaleString()
-              const kd = data[11].value;
+            const user = saved.username;
+            const platform = saved.platform;
+            const results = fetch(`https://api.fortnitetracker.com/v1/profile/${platform}/${user}`, headers).then(data => data.json()).then(json => {
+                const data = json.lifeTimeStats
+                const score = data[6].value;
+                const matchesPlayeds = data[7].value;
+                const matchesPlayed = Number(matchesPlayeds).toLocaleString();
+                const winss = data[8].value;
+                const wins = Number(winss).toLocaleString()
+                const winP = data[9].value;
+                const killss = data[10].value;
+                const kills = Number(killss).toLocaleString()
+                const kd = data[11].value;
 
-              const embed = new Discord.RichEmbed()
-                  .setColor(`#36393E`)
-                  .setAuthor(`${json.epicUserHandle}'s Fortnite Stats`)
-                  .addField("Wins", wins, true)
-                  .addField("Score", score, true)
-                  .addField("Matches Played", matchesPlayed, true)
-                  .addField("Win Percentage", winP, true)
-                  .addField("Kills", kills, true)
-                  .addField("K/D", kd, true)
-                  .setFooter(`Requested by: ${message.author.tag}`, message.author.displayAvatarURL)
-              message.channel.send(embed);
-          });
+                const embed = new Discord.RichEmbed()
+                    .setColor(`#36393E`)
+                    .setAuthor(`${json.epicUserHandle}'s Fortnite Stats`)
+                    .addField("Wins", wins, true)
+                    .addField("Score", score, true)
+                    .addField("Matches Played", matchesPlayed, true)
+                    .addField("Win Percentage", winP, true)
+                    .addField("Kills", kills, true)
+                    .addField("K/D", kd, true)
+                    .setFooter(`Requested by: ${message.author.tag}`, message.author.displayAvatarURL)
+                message.channel.send(embed);
+            });
         } else {
-          const embed = new Discord.RichEmbed()
-          .setColor('#36393E')
-          .setDescription(`You must link your account to check your stats!! By doing **${client.guildPrefixes.get(message.guild.id)}fortnite link**`)
-          message.channel.send(embed)
-      }
-  }
+            const embed = new Discord.RichEmbed()
+                .setColor('#36393E')
+                .setDescription(`You must link your account to check your stats!! By doing **${client.guildPrefixes.get(message.guild.id)}fortnite link**`)
+            message.channel.send(embed)
+        }
+    }
     // module.exports.help = {
     // name: 'fortnite',
     // usage: 'fortnite <platform> <username>',
