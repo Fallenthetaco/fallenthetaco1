@@ -18,7 +18,7 @@ class fortnite extends Command {
             aliases: ['fn'],
             description: 'Shows their Fortnite stats',
             usage: '!fornite <platform> <username>',
-            owner: false,
+            owner: true,
             nsfw: false,
             disabled: false
         })

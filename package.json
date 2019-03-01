@@ -31,7 +31,7 @@
     "discordboats.xyz": "^1.0.5",
     "discordextremelist-api": "github:discordsextremelist/js-library",
     "djs-commands": "^1.2.2",
-    "djs-easy-command": "github:fallenthetaco/djs-easy-command#4366610ccbd59790054d5cc210ec0432b68f0d78",
+    "djs-easy-command": "github:fallenthetaco/djs-easy-command#f446a8fe7a8bb7a26434f17e694ba54c5dd7414f",
     "ejs": "^2.6.1",
     "enmap": "^4.8.0",
     "erlpack": "github:discordapp/erlpack",
