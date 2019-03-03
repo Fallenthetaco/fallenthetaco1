@@ -1,3 +1,10 @@
+const express = require('express');
+var app = express();
+const http = require('http');
+const server = http.createServer(app);
+
+server.listen(80, function() { console.log('Example app listening on port 80!'); });
+
 const eco = require('discord-economy');
 const Discord = require('discord.js');
 const {
@@ -95,7 +102,31 @@ client.permissions = new Enmap({
 });
 client.fortnite = new Enmap({
     name: 'fortniteUsers'
-})
+});
+app.set('view engine', 'ejs')
+app.get('/', function(req, res) {
+    res.render(__dirname + '/home.ejs', {
+        client: client
+    })
+});
+app.get('/support', function(req, res) {
+    res.sendFile(__dirname + '/support.html')
+});
+app.get('/donate', function(req, res) {
+    res.sendFile(__dirname + '/donate.html')
+});
+app.get('/upvote', function(req, res) {
+    res.sendFile(__dirname + '/upvote.html')
+});
+app.get('/addme', function(req, res) {
+    res.sendFile(__dirname + '/addme.html')
+});
+app.get('/commands', function(req, res) {
+    res.render(__dirname + '/commands.ejs', {
+        client: client
+    })
+});
+
 function convertMS(milliseconds) {
     var day, hour, minute, seconds;
     seconds = Math.floor(milliseconds / 1000);
@@ -115,16 +146,11 @@ function convertMS(milliseconds) {
 process.on('unhandledRejection', (reason, p) => {
     console.log('Unhandled Rejection at: Promise', p, 'reason:', reason.stack);
 });
-const http = require("http");
-
-const port = 3000;
-http.createServer().listen(port);
-
 
 const upvoted = new Discord.WebhookClient('460934572230705172', 'nF5S4tbUZsf6lUP6iuEIPftginCgnuKp1hZ3V5w5QfIepCE-KNKbJVzqG8PTRncdKbhA')
 const DBL = require('dblapi.js');
 const dbl = new DBL('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQzNjA0NzA1NjM5NDY0OTYwMCIsImJvdCI6dHJ1ZSwiaWF0IjoxNTQ2MjM1MzUwfQ.NpErjoDENQNl82HZmvFAIJM3rzQ_MvX0xyaj3FCtjiA', {
-    webhookPort: 5000,
+    webhookServer: server,
     webhookAuth: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQzNjA0NzA1NjM5NDY0OTYwMCIsImJvdCI6dHJ1ZSwiaWF0IjoxNTI3ODg3MDY3fQ.3JuTYp-rb2-kXEaB6-RCTahjofJ1kZvpjT1BrjeGy50'
 }, client);
 dbl.webhook.on('ready', hook => {

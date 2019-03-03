@@ -32,10 +32,10 @@ class avatar extends Command {
             .setColor('#36393E')
             .setDescription('I am missing the permission "Attach Files"!!')
             if (!message.guild.me.permissions.has('ATTACH_FILES')) return message.channel.send(missing);
-            const missing = new Discord.RichEmbed()
+            const missings = new Discord.RichEmbed()
             .setColor('#36393E')
             .setDescription('I am missing the permission "Embed Links"!!')
-            if (!message.guild.me.permissions.has('EMBED_LINKS')) return message.channel.send(missing);
+            if (!message.guild.me.permissions.has('EMBED_LINKS')) return message.channel.send(missings);
             let mess = await message.channel.send("Loading image...");
             const embed = new Discord.RichEmbed()
                 .setImage(`${member.user.avatarURL}`)

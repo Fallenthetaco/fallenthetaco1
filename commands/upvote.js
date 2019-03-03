@@ -20,11 +20,11 @@ async run (client, message, args) {
   .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
   .setDescription(`${message.author.username}#${message.author.discriminator} used the **upvote** command`)
     mentionHook.send(webhook);
-//    const embedd = new Discord.RichEmbed()
-//        .setTitle(`Vote for me`)
-//        .setColor(`#36393E`)
-//        .addField('Discord Bots List:', `[Click Here](https://discordbots.org/bot/436047056394649600/vote)`);
-    message.channel.send('Sorry, but the upvote system is broken. Please wait until it is fixed thanks.');
+   const embedd = new Discord.RichEmbed()
+       .setTitle(`Vote for me`)
+       .setColor(`#36393E`)
+       .addField('Discord Bots List:', `[Click Here](https://discordbots.org/bot/436047056394649600/vote)`);
+    // message.channel.send('Sorry, but the upvote system is broken. Please wait until it is fixed thanks.');
 }
 }
 module.exports = upvote;
