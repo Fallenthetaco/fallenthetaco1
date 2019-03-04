@@ -24,6 +24,7 @@ async run (client, message, args) {
        .setTitle(`Vote for me`)
        .setColor(`#36393E`)
        .addField('Discord Bots List:', `[Click Here](https://discordbots.org/bot/436047056394649600/vote)`);
+       message.channel.send(embedd);
     // message.channel.send('Sorry, but the upvote system is broken. Please wait until it is fixed thanks.');
 }
 }
