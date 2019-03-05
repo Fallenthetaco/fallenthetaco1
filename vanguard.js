@@ -103,6 +103,9 @@ client.permissions = new Enmap({
 client.fortnite = new Enmap({
     name: 'fortniteUsers'
 });
+var favicon = require('serve-favicon');
+
+app.use(favicon(__dirname + '/Fallenthetaco.ico'));
 app.set('view engine', 'ejs')
 app.get('/', function(req, res) {
     res.render(__dirname + '/home.ejs', {

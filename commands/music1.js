@@ -1,10 +1,9 @@
-const Discord = module.require("discord.js");
 const YouTube = module.require("simple-youtube-api");
 const ytdl = module.require("ytdl-core");
+const Discord = require('discord.js')
 const queue = new Map();
 const config = require('../config.json');
 const youtube = new YouTube('AIzaSyDIc5xF7lWIpahYOKlIoij05vtP0FruwTc');
-const client = new Discord.Client();
 const ownerID = '286713468285878272';
 const {
     Command
