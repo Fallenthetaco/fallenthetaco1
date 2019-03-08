@@ -350,10 +350,12 @@ const handleMessage = async (message) => {
                 .setFooter('Support Ticket Created!')
                 .addField('User', author)
                 .addField('ID', author.id)
+                .setTimestamp()
             await channel.send(newChannel);
             await channel.send('<@285077327074033676> You got a new support ticket.')
             const newTicket = new Discord.RichEmbed()
                 .setColor('RANDOM')
+                .setTimestamp()
                 .setAuthor(`Hello, ${author.username}`, author.displayAvatarURL)
                 .setFooter('Support Ticket Created!')
             await author.send(newTicket);
@@ -363,6 +365,7 @@ const handleMessage = async (message) => {
         channel = client.channels.get(active.channelID);
         const dm = new Discord.RichEmbed()
             .setColor('RANDOM')
+            .setTimestamp()
             .setDescription(message.content)
             .setAuthor(`Thank you, ${message.author.username}`, message.author.displayAvatarURL)
             .setFooter(`Your message has been sent - A staff member will be in contact soon.`)
@@ -370,6 +373,7 @@ const handleMessage = async (message) => {
         if (message.content === '!complete') return;
         const embed = new Discord.RichEmbed()
             .setColor('RANDOM')
+            .setTimestamp()
             .setAuthor(message.author.tag, message.author.displayAvatarURL)
             .setDescription(message.content)
             .setFooter(`Message Received - ${message.author.tag}`)
@@ -388,6 +392,7 @@ const handleMessage = async (message) => {
                 .setColor('RANDOM')
                 .setAuthor(`Hey, ${supportUser.tag}`, supportUser.displayAvatarURL)
                 .setFooter('Ticket Closed -- FallenTheTaco Lab')
+                .setTimestamp()
                 .setDescription('*Your ticket has been marked as complete. If you wish to reopen it, or create a new one, please send a message to the bot.*')
             supportUser.send(complete);
             message.channel.setParent('525343816035860480');
@@ -395,6 +400,7 @@ const handleMessage = async (message) => {
         }
         const embed = new Discord.RichEmbed()
             .setColor('RANDOM')
+            .setTimestamp()
             .setAuthor(message.author.tag, message.author.displayAvatarURL)
             .setFooter(`Message Received - FallenTheTaco Lab`)
             .setDescription(message.content)
@@ -404,7 +410,8 @@ const handleMessage = async (message) => {
             timeout: 10000
         });
         embed.setFooter(`Message Sent -- ${supportUser.tag}`)
-            .setDescription(message.content);
+            .setDescription(message.content)
+            .setTimestamp();
         return message.channel.send(embed);
     }
     if (message.channel.type === "dm") return;
