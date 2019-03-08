@@ -18,7 +18,7 @@ class music1 extends Command {
             aliases: ['m'],
             description: 'Shows music options',
             usage: '!music <options>',
-            owner: false,
+            owner: true,
             nsfw: false,
             disabled: false
         })

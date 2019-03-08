@@ -91,6 +91,9 @@ client.blocks = new Enmap({
 client.activatePower = new Enmap({
     name: 'playersActivate'
 });
+client.logs = new Enmap({
+    name: 'logs'
+})
 client.command = new Enmap({
     name: 'commands'
 });
