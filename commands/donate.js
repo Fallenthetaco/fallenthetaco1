@@ -12,6 +12,7 @@ class donate extends Command {
             aliases: ['donate'],
             description: 'Donate some money to FallenTheTaco',
             usage: '!donate',
+            category: 'util',
             owner: false,
             nsfw: false,
             disabled: false

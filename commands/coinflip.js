@@ -12,6 +12,7 @@ class coinflip extends Command {
         super({
             name: 'coinflip',
             aliases: ['cf'],
+            category: 'fun',
             description: 'CoinFlip Heads or Tails',
             usage: '!coinflip <amount> <head or tails>',
             owner: false,

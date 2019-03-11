@@ -13,6 +13,7 @@ class Eval extends Command {
         super({
             name: 'eval',
             aliases: ['e'],
+            category: 'owner',
             description: 'Owner Command',
             usage: '!eval [bash] <code>',
             owner: true,

@@ -10,6 +10,7 @@ class redeem extends Command {
         super({
             name: 'redeem',
             aliases: ['rd'],
+            category: 'util',
             description: 'Redeems a key after donating money to FallenTheTaco',
             usage: '!redeem <key>'
         })

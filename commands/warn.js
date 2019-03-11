@@ -14,6 +14,7 @@ class warn extends Command {
         super({
             name: 'warn',
             aliases: ['warn'],
+            category: 'moderation',
             description: 'Warns the user',
             usage: '!warn @user <reason'
         })

@@ -11,6 +11,7 @@ class servers extends Command {
         super({
             name: 'servers',
             aliases: ['server'],
+            category: 'util',
             description: 'Shows how many servers I am in',
             usage: '!servers'
         })

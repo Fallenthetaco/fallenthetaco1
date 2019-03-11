@@ -13,6 +13,7 @@ class nou extends Command {
             aliases: ['nou'],
             description: 'No u',
             usage: '!nou',
+            category: 'fun',
             owner: false,
             nsfw: false,
             disabled: false

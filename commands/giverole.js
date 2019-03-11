@@ -12,6 +12,7 @@ class giverole extends Command {
         super({
             name: 'giverole',
             aliases: ['gr'],
+            category: 'moderation',
             description: 'Gives a role to a user',
             usage: '!giverole @user (role)',
             owner: false,

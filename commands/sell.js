@@ -11,6 +11,7 @@ class sell extends Command {
         super({
             name: 'sell',
             aliases: ['sell'],
+            category: 'economy',
             description: "Sells any items you have.",
             usage: '!sell <amount> <item>',
             owner: false

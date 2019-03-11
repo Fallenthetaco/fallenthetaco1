@@ -12,6 +12,7 @@ class removerole extends Command {
         super({
             name: 'removerole',
             aliases: ['rm'],
+            category: 'moderation',
             description: 'Removes a role from a user',
             usage: '!removerole @user <role>'
         })

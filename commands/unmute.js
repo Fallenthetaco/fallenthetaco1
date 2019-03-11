@@ -12,6 +12,7 @@ class unmute extends Command {
   name: 'unmute',
   aliases: ['um'],
   description: 'Unmutes a user',
+  category: 'moderation',
   usage: '!unmute @user'
   })
 }

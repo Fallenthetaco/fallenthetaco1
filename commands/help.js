@@ -17,6 +17,7 @@ class help extends Command {
         super({
             name: 'help',
             aliases: ['h'],
+            category: 'util',
             description: 'Shows all of the available commands that you can use',
             usage: '!help (command)',
             owner: false,

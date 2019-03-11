@@ -14,6 +14,7 @@ class kick extends Command {
             aliases: ['k'],
             description: 'Kicks the user',
             usage: '!kick @user',
+            category: 'moderation',
             owner: false,
             nsfw: false,
             disabled: false

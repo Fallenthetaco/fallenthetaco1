@@ -11,6 +11,7 @@ class prune extends Command {
         super({
             name: 'prune',
             aliases: ['purge'],
+            category: 'moderation',
             description: 'Prunes messages from yourself only.',
             usage: '!prune <amount>'
         })

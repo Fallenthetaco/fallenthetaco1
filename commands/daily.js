@@ -12,6 +12,7 @@ class daily extends Command {
         super({
             name: 'daily',
             aliases: ['d'],
+            category: 'economy',
             description: 'Claim your daily tacos',
             usage: '!daily',
             owner: false,

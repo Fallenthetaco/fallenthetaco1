@@ -16,6 +16,7 @@ class fortnite extends Command {
         super({
             name: 'fortnite',
             aliases: ['fn'],
+            category: 'fun',
             description: 'Shows their Fortnite stats',
             usage: '!fornite <platform> <username>',
             owner: true,

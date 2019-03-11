@@ -10,6 +10,7 @@ class say extends Command {
         super({
             name: 'say',
             aliases: ['s'],
+            category: 'fun',
             description: "Say anything and I'll reply back",
             usage: '!say <anything>'
         })

@@ -12,6 +12,7 @@ class items extends Command {
             aliases: ['i'],
             description: 'Shows the items you got from work',
             usage: '!items',
+            category: 'economy',
             owner: false,
             nsfw: false,
             disabled: false

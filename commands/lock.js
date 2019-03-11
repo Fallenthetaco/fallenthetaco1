@@ -12,6 +12,7 @@ class lock extends Command {
         super({
             name: 'lock',
             aliases: ['l'],
+            category: 'moderation',
             description: 'Locks the channel so only staff can see it',
             usage: '!lock <time> ',
             owner: false,

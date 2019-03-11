@@ -12,6 +12,7 @@ class leaderboard extends Command {
         super({
             name: 'leaderboard',
             aliases: ['lb'],
+            category: 'economy',
             description: 'Shows the top 11 in the leaderboard',
             usage: '!leaderboard',
             owner: false,

@@ -14,6 +14,7 @@ class prefix extends Command {
             aliases: ['pf'],
             description: 'Shows my current prefix',
             usage: '!prefix',
+            category: 'util',
             owner: false,
             nsfw: false,
             disabled: false

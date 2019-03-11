@@ -14,6 +14,7 @@ class start extends Command {
         super({
             name: 'start',
             aliases: ['start'],
+            category: 'economy',
             description: 'Gets 1000 tacos for free',
             usage: '!start'
         })

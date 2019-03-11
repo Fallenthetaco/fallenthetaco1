@@ -10,6 +10,7 @@ class settings extends Command {
         super({
             name: 'settings',
             aliases: ['setting'],
+            category: 'moderation',
             description: 'Settings for your server',
             usage: '!settings set <options> <id>'
         })

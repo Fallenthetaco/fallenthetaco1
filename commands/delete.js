@@ -11,6 +11,7 @@ class Delete extends Command {
         super({
             name: 'delete',
             aliases: ['del'],
+            category: 'economy',
             description: 'Deletes your tacos account',
             usage: '!delete confirm',
             owner: false,

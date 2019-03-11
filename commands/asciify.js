@@ -14,6 +14,7 @@ class asciify extends Command {
             aliases: ['as'],
             description: 'Shows a nice name/word',
             usage: '!asciify (letters/numbers)',
+            category: 'fun',
             owner: false,
             nsfw: false,
             disabled: false

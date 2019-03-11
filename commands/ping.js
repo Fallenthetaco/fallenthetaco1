@@ -15,6 +15,7 @@ class ping extends Command {
             aliases: ['ping'],
             description: 'ping/pong basically.',
             usage: '!ping',
+            category: 'util',
             owner: false,
             nsfw: false,
             disabled: true

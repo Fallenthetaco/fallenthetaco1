@@ -12,6 +12,7 @@ class reboot extends Command {
     super({
   name: 'reboot',
   aliases: ['rb'],
+  category: 'owner',
   description: 'Owner Command',
   usage: '!reboot'
   })

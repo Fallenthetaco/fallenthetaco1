@@ -13,6 +13,7 @@ class use extends Command {
             usage: '!use <item>',
             description: 'Use your powerups',
             aliases: ['u'],
+            category: 'economy',
             owner: false
         })
     }

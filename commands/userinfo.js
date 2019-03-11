@@ -24,6 +24,7 @@ class userinfo extends Command {
         super({
             name: 'userinfo',
             aliases: ['ui'],
+            category: 'util',
             description: "Gets userinfo from a mention",
             usage: '!userinfo @user'
         })

@@ -10,6 +10,7 @@ class reload extends Command {
         super({
             name: 'reload',
             aliases: ['rl'],
+            category: 'owner',
             description: 'Owner Command',
             usage: '!reload',
             owner: true,

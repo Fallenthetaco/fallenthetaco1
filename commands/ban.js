@@ -14,6 +14,7 @@ class ban extends Command {
             aliases: ['ban'],
             description: 'Bans a user of your choice',
             usage: '!ban @user',
+            category: 'moderation',
             owner: false,
             nsfw: false,
             disabled: false

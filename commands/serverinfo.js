@@ -13,6 +13,7 @@ class serverinfo extends Command {
         super({
             name: 'serverinfo',
             aliases: ['si'],
+            category: 'util',
             description: `Shows the server's information`,
             usage: '!serverinfo'
         })

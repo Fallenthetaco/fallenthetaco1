@@ -11,6 +11,7 @@ class goal extends Command {
         super({
             name: 'goal',
             aliases: ['g'],
+            category: 'util',
             description: 'Shows how many servers left to reach 150 servers',
             usage: '!goal',
             owner: false,

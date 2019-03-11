@@ -14,6 +14,7 @@ class balance extends Command {
             aliases: ['bal'],
             description: 'Shows your balance',
             usage: '!balance @user',
+            category: 'economy',
             owner: false,
             nsfw: false,
             disabled: false

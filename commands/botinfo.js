@@ -29,6 +29,7 @@ class botinfo extends Command {
             aliases: ['bi'],
             description: 'Shows information about me',
             usage: '!botinfo',
+            category: 'util',
             owner: false,
             nsfw: false,
             disabled: false

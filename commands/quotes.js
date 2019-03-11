@@ -11,6 +11,7 @@ class quote extends Command {
             aliases: ['quote'],
             description: 'Make a quote',
             usage: '!quote <quote>',
+            category: 'fun',
             owner: false,
             nsfw: false,
             disabled: false

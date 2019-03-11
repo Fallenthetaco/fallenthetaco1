@@ -12,6 +12,7 @@ class mute extends Command {
         super({
             name: 'mute',
             aliases: ['mute'],
+            category: 'moderation',
             description: 'Mutes the user',
             usage: '!mute @user (reason)',
             owner: false,

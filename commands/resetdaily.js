@@ -11,6 +11,7 @@ class resetDaily extends Command {
         super({
             name: 'resetdaily',
             aliases: ['rd'],
+            category: 'owner',
             description: "Resets the daily for a user",
             usage: '!resetdaily @user',
             owner: true,

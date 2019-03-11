@@ -10,6 +10,7 @@ class upvote extends Command {
   name: 'upvote',
   aliases: ['uv'],
   description: 'Upvote for me',
+  category: 'util',
   usage: '!upvote'
   })
 }

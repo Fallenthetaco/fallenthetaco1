@@ -11,6 +11,7 @@ class Eightball extends Command {
             aliases: ['8ball'],
             description: 'Ask a question',
             usage: '!8ball <question>',
+            category: 'fun',
             owner: false,
             nsfw: false,
             disabled: false

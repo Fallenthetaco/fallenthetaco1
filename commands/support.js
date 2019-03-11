@@ -11,6 +11,7 @@ class support extends Command {
         super({
             name: 'support',
             aliases: ['support'],
+            category: 'util',
             description: 'Shows the support server if you need something or invite me to your server',
             usage: '!support'
         })

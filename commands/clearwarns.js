@@ -12,6 +12,7 @@ class clearwarn extends Command {
         super({
           name: 'clearwarn',
           aliases: ['cw'],
+          category: 'moderation',
           description: 'Clears all warns from a user',
           usage: 'clearwarn @user'
         })

@@ -10,6 +10,7 @@ class suggest extends Command {
         super({
             name: 'suggest',
             aliases: ['suggest'],
+            category: 'util',
             description: 'suggest what should `NL Fallentaco#9340` add',
             usage: '!suggest <question>'
         })

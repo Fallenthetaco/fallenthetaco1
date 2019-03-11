@@ -12,6 +12,7 @@ class calc extends Command {
             usage: '!calc <whatever>',
             description: 'Calculates anything',
             aliases: ['!calc'],
+            category: 'fun',
             owner: false,
             nsfw: false,
             disabled: false

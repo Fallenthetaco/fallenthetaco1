@@ -12,6 +12,7 @@ class transfer extends Command {
         super({
             name: 'transfer',
             aliases: ['t'],
+            category: 'economy',
             description: 'Transfer tacos with another member',
             usage: '!transfer <amount> @user'
         })

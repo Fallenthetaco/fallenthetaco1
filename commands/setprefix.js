@@ -12,6 +12,7 @@ class setprefix extends Command {
         super({
             name: 'setprefix',
             aliases: ['sp'],
+            category: 'moderation',
             description: 'Sets the bots prefix to be anything',
             usage: '!setprefix <anything>'
         })

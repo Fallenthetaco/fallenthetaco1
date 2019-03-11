@@ -11,6 +11,7 @@ class tacos extends Command {
         super({
             name: 'tacos',
             aliases: ['taco'],
+            category: 'fun',
             description: 'Its just taco pictures',
             usage: '!tacos'
         })

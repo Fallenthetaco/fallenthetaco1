@@ -13,6 +13,7 @@ class Slots extends Command {
         super({
             name: 'slots',
             aliases: ['slots'],
+            category: 'economy',
             description: 'A simple slot machine game',
             usage: '!slots <anount>',
             owner: false

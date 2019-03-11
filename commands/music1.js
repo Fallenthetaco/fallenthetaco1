@@ -20,6 +20,7 @@ class music1 extends Command {
         super({
             name: 'music',
             aliases: ['m'],
+            category: 'music',
             description: 'Shows music options',
             usage: '!music <options>',
             owner: true,

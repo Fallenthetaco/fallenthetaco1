@@ -15,6 +15,7 @@ class setBal extends Command {
         super({
             name: 'setbal',
             aliases: ['sb'],
+            category: 'owner',
             description: 'Sets the balance of your money',
             usage: '!setbal <amount> @user',
             owner: true,

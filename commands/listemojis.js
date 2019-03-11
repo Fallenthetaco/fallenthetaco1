@@ -11,6 +11,7 @@ class listemoji extends Command {
         super({
             name: 'listemoji',
             aliases: ['le'],
+            category: 'util',
             description: 'Lists all the custom emojis from this server',
             usage: '!listemoji',
             owner: false,

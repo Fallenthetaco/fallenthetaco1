@@ -16,6 +16,7 @@ class buy extends Command {
             aliases: ['buy'],
             description: 'Buys anything on the shop',
             usage: '!buy <whatever in shop>',
+            category: 'economy',
             owner: false,
             nsfw: false,
             disabled: false

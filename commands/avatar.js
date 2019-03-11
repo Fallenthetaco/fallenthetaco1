@@ -13,6 +13,7 @@ class avatar extends Command {
             aliases: ['av'],
             description: 'Shows your/others profile picture',
             usage: '!avatar @user',
+            category: 'fun',
             owner: false,
             nsfw: false,
             disabled: false

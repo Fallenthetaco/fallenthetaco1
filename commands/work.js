@@ -11,6 +11,7 @@ class work extends Command {
         super({
             name: 'work',
             usage: '!work',
+            category: 'economy',
             description: 'Beginners work hard right?',
             aliases: ['w'],
             owner: false
