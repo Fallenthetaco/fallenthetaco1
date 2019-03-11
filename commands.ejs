@@ -2,68 +2,25 @@
     <html>
 <head>
       <title>Commands - FallenTheTaco</title>
+      <link rel="stylesheet" type="text/css" href="/style2.css" />
       </head>
     <body>
-        <style>
-            tr {
-                font-size: 27px;
-                background-color: #f1f1c1;
-            }
-
-            ul {
-                list-style-type: none;
-                margin: 0;
-                padding: 0;
-                overflow: hidden;
-                background-color: #333;
-            }
-            h2 {
-                text-align: center;
-            }
-            li {
-                float: left;
-                text-align: center;
-                border-right: 1px solid #bbb;
-            }
-            td {
-                text-align: center;
-              }
-            p {
-                left: 100px;
-                margin: auto;
-                text-align: center;
-                font-size: 90px;
-                background-color: #7289DA;
-            }
-            body {
-                background-color: gray;
-            }
-            li a {
-                display: block;
-                color: white;
-                text-align: center;
-                padding: 14px 16px;
-                text-decoration: none;
-                font-size: 35px;
-            }
-            /* Change the link color to #111 (black) on hover */
-            li a:hover {
-                background-color: #111;
-            h2 {
-                text-align: center;
-            }
-            }
-        </style>
-        <div class="navbar">
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="commands">Commands</a></li>
-                <li><a href="donate">Donate</a></li>
-                <li><a href="addme">Addme</a></li>
-                <li><a href="upvote">Upvote</a></li>
-                <li style="float:right"><a class="active" href="support">Support</a></li>
-            </ul>
+      <div class="dropdown">
+        <div class="container" onclick="myFunctions(this)">
+          <div class="bar1"></div>
+          <div class="bar2"></div>
+          <div class="bar3"></div>
         </div>
+        <div id="myDropdown" class="dropdown-content">
+      <a href='/'>Home</a>
+      <a href='commands'>Commands</a>
+      <a href='donate'>Donate</a>
+      <a href='addme'>Addme</a>
+      <a href='upvote'>Upvote</a>
+      <a href='support'>Support</a>
+      </div>
+      <script src="/myscripts.js"></script>
+  </div>
         <br>
         <p>Command List</p>
         <br>
@@ -77,10 +34,10 @@
             </tr>
 <h2>I have setup a economy system about tacos. You first do <i>!start</i>, then <i>!daily</i>, then <i>!balance</i>, etc, etc, etc. (Whichever comes first it doesn't really matter)</h2>
 
-            <% const help1 = []; 
+            <% const help1 = [];
 let commandList = client.comman.get('command').map(c => {
   help1.push({name: c.name, description: c.description, usage: c.usage, alias: `!${c.alias[0]}`});
-}); 
+});
 help1.forEach(function(command) { %>
 
             <tr class="w3-hover-gray w3-border">

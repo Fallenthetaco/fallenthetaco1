@@ -125,6 +125,7 @@ app.get('/', function(req, res) {
 app.get('/support', function(req, res) {
     res.sendFile(__dirname + '/support.html')
 });
+app.use(express.static(__dirname + '/public'));
 app.get('/donate', function(req, res) {
     res.sendFile(__dirname + '/donate.html')
 });
