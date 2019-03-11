@@ -27,7 +27,6 @@
         <table>
             <tr>
                 <th>Name</th>
-                </th>
                 <th>Description</th>
                 <th>Alias</th>
                 <th>Usage</th>
@@ -36,7 +35,7 @@
 
             <% const help1 = [];
 let commandList = client.comman.get('command').map(c => {
-  help1.push({name: c.name, description: c.description, usage: c.usage, alias: `!${c.alias[0]}`});
+  help1.push({name: c.name, description: c.description, usage: c.usage, alias: `!${c.alias[0]}`, category: c.category});
 });
 help1.forEach(function(command) { %>
 
