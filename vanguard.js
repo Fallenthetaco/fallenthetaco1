@@ -275,7 +275,8 @@ function commandLoop() {
             name: value.name,
             description: value.description,
             usage: value.usage,
-            alias: value.aliases
+            alias: value.aliases,
+            category: value.category
         });
     }
 }
