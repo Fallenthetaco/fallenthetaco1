@@ -72,21 +72,24 @@ class settings extends Command {
             message.channel.send(embed);
         } else if (args[0] === 'reset') {
             const channels = client.channel.has(message.guild.id)
-            if (!client.channel.get(message.guild.id) || client.autoRole.get(message.guild.id) || client.message.get(message.guild.id)) return message.channel.send('You do not have anything set therefore you can not use this command.')
+            if (!client.channel.get(message.guild.id) || !client.logs.get(message.guild.id) || !client.autoRole.get(message.guild.id) || !client.message.get(message.guild.id)) return message.channel.send('You do not have anything set therefore you can not use this command.')
             client.autoRole.delete(message.guild.id);
             client.channel.delete(message.guild.id);
+            client.logs.delete(message.guild.id);
             client.message.delete(message.guild.id);
             message.channel.send('You have successfully reset the configurations set on this server');
         } else {
             const channel = client.channel.get(message.guild.id);
             const role = client.autoRole.get(message.guild.id);
             const messages = client.message.get(message.guild.id);
+            const logs = client.logs.get(message.guild.id);
             const embed = new Discord.RichEmbed()
                 .setAuthor(`${message.guild.name}'s Current Settings`)
                 .setColor(`#36393E`)
                 .addField('Channel:', `<#${channel ? `${channel}`: 'none'}>`)
                 .addField('Role:', `<@&${role ? `${role}`: 'none'}>`)
                 .addField('Message:', `${messages ? `${messages}`: 'none'}`)
+                .addField('ModLogs:', `<#${logs ? `${logs}`: 'none'}>`)
                 .setFooter(message.guild.name, message.guild.iconURL)
             message.channel.send(embed);
         }

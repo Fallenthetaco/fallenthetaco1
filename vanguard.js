@@ -27,7 +27,11 @@ const cooldown = new Set();
 let cdseconds = 5;
 const db = require('quick.db');
 var schedule = require('node-schedule');
-
+// var cleverbot = require("cleverbot.io"),
+// bot = new cleverbot("Lxy4yF4XHO4VcBem", "vrAMnpeRdG6ASVbbADKnBc1br1FQLPpU");
+// bot.setNick("sessionname")
+// bot.create(function (err, session) {
+// }
 const createHash = require('hash-generator');
 const swearWords = ['gay', 'Gay', 'GAY', 'fuck', 'Fuck', 'FUck', 'FUCK', 'Fuk', 'Fuckers', 'G A E', 'gae', 'Gae', 'G A Y', 'GaY', 'GAE', 'GAy', 'gAy', 'gAY', 'lesbian', 'Lesbian', 'LESBIAN', 'LEsbian', 'LESbian', 'LESBian', 'LESBIan', 'LESBIAn', 'LESBIAN'];
 
@@ -93,7 +97,10 @@ client.activatePower = new Enmap({
 });
 client.logs = new Enmap({
     name: 'logs'
-})
+});
+client.activities = new Enmap({
+    name: 'activity'
+});
 client.command = new Enmap({
     name: 'commands'
 });
@@ -504,6 +511,19 @@ const handleMessage = async (message) => {
     const argresult = args.slice(1).join(' ');
     if (message.content.startsWith('!channel')) {
         console.log(message.channel.id)
+    }
+    if (message.content.startsWith('!set')) {
+      if (message.author.id !== ownerID) return;
+      let act = args.slice(1).join(' ');
+      if (!act) return message.channel.send('You must provide something for the activity on the website');
+      client.activities.set('activity', act);
+      message.channel.send('I have successfully changed the activity, go check out the website to see the changes.');
+      const embed = new Discord.RichEmbed()
+      .setColor('#36393E')
+      .setDescription(act)
+      .setAuthor('Updates:')
+      .setFooter(`- ${message.author.tag}`)
+      client.channels.get('452003111628832798').send(embed);
     }
     if (message.content.startsWith('!block')) {
         if (message.author.id !== ownerID) return;

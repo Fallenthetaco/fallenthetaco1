@@ -25,6 +25,7 @@
     "blapi": "^1.0.1",
     "boats.js": "^2.1.2",
     "bufferutil": "^4.0.1",
+    "cleverbot.io": "^1.0.4",
     "dblapi.js": "^2.3.0",
     "discord-economy": "^1.1.6",
     "discord.js": "^11.4.2",
@@ -66,7 +67,8 @@
     "sqlite3": "^4.0.6",
     "util": "^0.11.1",
     "yt-search": "^0.4.1",
-    "ytdl-core": "^0.29.0"
+    "ytdl-core": "^0.29.0",
+    "ytdl-core-discord": "^1.0.3"
   },
   "repository": {
     "type": "git",
