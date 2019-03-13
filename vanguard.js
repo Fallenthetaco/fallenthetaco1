@@ -27,6 +27,8 @@ const cooldown = new Set();
 let cdseconds = 5;
 const db = require('quick.db');
 var schedule = require('node-schedule');
+const EnmapMongo = require('enmap-mongo');
+
 // var cleverbot = require("cleverbot.io"),
 // bot = new cleverbot("Lxy4yF4XHO4VcBem", "vrAMnpeRdG6ASVbbADKnBc1br1FQLPpU");
 // bot.setNick("sessionname")
@@ -34,10 +36,16 @@ var schedule = require('node-schedule');
 // }
 const createHash = require('hash-generator');
 const swearWords = ['gay', 'Gay', 'GAY', 'fuck', 'Fuck', 'FUck', 'FUCK', 'Fuk', 'Fuckers', 'G A E', 'gae', 'Gae', 'G A Y', 'GaY', 'GAE', 'GAy', 'gAy', 'gAY', 'lesbian', 'Lesbian', 'LESBIAN', 'LEsbian', 'LESbian', 'LESBian', 'LESBIan', 'LESBIAn', 'LESBIAN'];
+const level = new EnmapMongo({
+  name: 'test',
+  dbName: 'enmap',
+  url: 'mongodb://fallentaco:jn196196@ds235768.mlab.com:35768/fallentaco'
+});
+console.log(level);
 
 const Database = new Enmap({
     name: 'dataBase',
-    fetchAll: false,
+    fetchAll: true,
     autoFetch: true,
     cloneLevel: 'deep'
 });
@@ -785,23 +793,23 @@ const handleReady = (message) => {
                             server_count: results.reduce((prev, val) => prev + val, 0),
                         })
                         .catch(r => console.log('[discordbots.group] Failed POST'));
-                    const {
-                        post
-                    } = require('snekfetch')
-                    const updateBotList = async () => {
-                        console.log('Updating DBL stats')
-
-                        const {
-                            body: reply
-                        } = await post('https://discordbotlist.com/api/bots/436047056394649600/stats')
-                            .set("Authorization", `Bot 5af87d9b0e181430a27b6f91dae3815847b6bfff76919faf580ba33075aecbd2`)
-                            .send({
-                                guilds: results.reduce((prev, val) => prev + val, 0),
-                                users: user.reduce((prev, val) => prev + val, 0),
-                            })
-                        return (reply)
-                    }
-                    const responseFromAPI = updateBotList()
+                //     const {
+                //         post
+                //     } = require('snekfetch')
+                //     const updateBotList = async () => {
+                //         console.log('Updating DBL stats')
+                //
+                //         const {
+                //             body: reply
+                //         } = await post('https://discordbotlist.com/api/bots/436047056394649600/stats')
+                //             .set("Authorization", `Bot 5af87d9b0e181430a27b6f91dae3815847b6bfff76919faf580ba33075aecbd2`)
+                //             .send({
+                //                 guilds: results.reduce((prev, val) => prev + val, 0),
+                //                 users: user.reduce((prev, val) => prev + val, 0),
+                //             })
+                //         return (reply)
+                //     }
+                //     const responseFromAPI = updateBotList()
                 })
         })
 };
