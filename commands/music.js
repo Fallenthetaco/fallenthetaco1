@@ -21,7 +21,7 @@ class music extends Command {
         super({
             name: 'music1',
             aliases: ['m1'],
-            cateogry: 'music',
+            category: 'music',
             description: 'No longer in service',
             usage: '!music <options>',
             owner: true,

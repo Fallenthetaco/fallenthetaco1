@@ -2,12 +2,11 @@ const {
     Util
 } = require('discord.js');
 const ytdl = require('ytdl-core');
-const YouTube = require("simple-youtube-api");
-const youtube = new YouTube('AIzaSyDIc5xF7lWIpahYOKlIoij05vtP0FruwTc');
-const ytdlDiscord = require('ytdl-core-discord');
+// const YouTube = require("simple-youtube-api");
+// const youtube = new YouTube('AIzaSyDIc5xF7lWIpahYOKlIoij05vtP0FruwTc');
 const Discord = require('discord.js');
 const config = require('../config.json');
-const queue = new Map();
+// const queue = new Map();
 const ownerID = '286713468285878272';
 const {
     Command
@@ -38,71 +37,22 @@ class music1 extends Command {
                 .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
                 .setDescription(`${message.member.user.tag} used the **play** command`)
             mentionHook.send(webhook);
-            const {
-                voiceChannel
-            } = message.member;
-            const embed = new Discord.RichEmbed()
-                .setColor('#36393E')
-                .setDescription('You need to be in a voice channel in order for me to play music.')
-            if (!voiceChannel) return message.channel.send(embed);
-            const permissions = voiceChannel.permissionsFor(message.client.user);
-            const fail = new Discord.RichEmbed()
-                .setColor('#36393E')
-                .setDescription('I cannot connect to your voice channel, make sure I have the *Connect* permission!')
-            if (!permissions.has('CONNECT')) return message.channel.send(fail);
-            const spFail = new Discord.RichEmbed()
-                .setColor('#36393E')
-                .setDescription('I cannot speak in this voice channel, make sure I have the *Speak* permission!')
-            if (!permissions.has('SPEAK')) return message.channel.send(spFail);
-            const searchString = args.slice(1).join(" ");
-            const url = args[1].replace(/<(.+)>/g, "$1");
-            if (url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
-                const playlist = await youtube.getPlaylist(url);
-                const videos = await playlist.getVideos();
-                for (const video of Object.values(videos)) {
-                    const video2 = await youtube.getVideoByID(video.id);
-                    await handleMusic(video2, message, voiceChannel, true);
-                }
-            } else {
-            try {
-                var video = await youtube.getVideo(url);
-            } catch (error) {
-                try {
-                    var videos = await youtube.searchVideos(searchString, 10);
-                    let index = 0;
-                    const embed = new Discord.RichEmbed()
-                        .setColor('#36393E')
-                        .setFooter('Please provide a value to select one of the search results ranging from 1-10.')
-                        .setTitle(`__**Song selection:**__`)
-                    videos.map(video2 => embed.addField(`**${++index}.**`, `${video2.title}`));
-                    message.channel.send(embed);
-                    // eslint-disable-next-line max-depth
-                    try {
-                        var response = await message.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11, {
-                            maxMatches: 1,
-                            time: 10000,
-                            errors: ['time']
-                        });
-                    } catch (err) {
-                        console.error(err);
-                        const error = new Discord.RichEmbed()
-                            .setColor('#36393E')
-                            .setDescription('Nothing has been entered so I\'m cancelling video selection.')
-                        return message.channel.send(error);
-                    }
-                    const videoIndex = parseInt(response.first().content);
-                    var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
-                } catch (err) {
-                    console.error(err);
-                    const error = new Discord.RichEmbed()
-                        .setColor('#36393E')
-                        .setDescription('I could not obtain any search results.')
-                    return message.channel.send(error);
-                }
+            if (!message.member.voiceChannel) return message.channel.send('You have to be connected to a voice channel');
 
-            }
-            return handleMusic(video, message, voiceChannel)
-          }
+            if (message.guild.me.voiceChannel) return message.channel.send('I\'m already in the voice channel')
+
+            if (!args[1]) return message.channel.send('You need to enter the url.')
+
+            let validate = await ytdl.validateURL(args[1]);
+
+            if (!validate) return message.channel.send('You need to enter a valid url');
+
+            let info = await ytdl.getInfo(args[1]);
+
+            let connection = await message.member.voiceChannel.join();
+            
+            let dispatcher = await connection.playStream(ytdl(args[1], { filter : 'audioonly' }));
+            message.channel.send(`Now playing: **${info.title}**`);
         } else if (args[0] === "stop") {
             const webhook = new Discord.RichEmbed()
                 .setColor('#36393E')
@@ -380,6 +330,7 @@ class music1 extends Command {
                 //     play(guild, serverQueue.songs[0]);
                 // })
                 dispatcher.error(error => console.log(error));
+                const streamOptions = { seek: 0, volume: 1 }
             dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
 
             const songPlay = new Discord.RichEmbed()

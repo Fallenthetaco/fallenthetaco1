@@ -36,7 +36,7 @@
             <% const help1 = [];
 let commandList = client.comman.get('command').map(c => {
   help1.push({name: c.name, description: c.description, usage: c.usage, alias: `!${c.alias[0]}`, category: c.category});
-});
+}).sort();
 help1.forEach(function(command) { %>
 
             <tr class="w3-hover-gray w3-border">
