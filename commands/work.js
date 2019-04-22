@@ -51,11 +51,13 @@ class work extends Command {
         let choose = powerups[Math.floor(Math.random() * powerups.length)];
         client.jobs.ensure(message.author.id, 'Taco Bell Employee');
         let powerup = client.powerups.ensure(message.author.id, {
+            name: message.author.username,
             srirachas: 0,
             jalapenos: 0,
             salsas: 0
         });
         let item = client.items.ensure(message.author.id, {
+            name: message.author.username,
             tacos: 0,
             plastics: 0,
             burritos: 0,

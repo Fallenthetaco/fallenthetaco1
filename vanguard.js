@@ -1,9 +1,10 @@
 const express = require('express');
 var app = express();
 const http = require('http');
+
 const server = http.createServer(app);
 
-server.listen(80, function() { console.log('Example app listening on port 80!'); });
+server.listen(3000);
 
 const eco = require('discord-economy');
 const Discord = require('discord.js');
@@ -28,7 +29,6 @@ let cdseconds = 5;
 const db = require('quick.db');
 var schedule = require('node-schedule');
 const EnmapMongo = require('enmap-mongo');
-
 // var cleverbot = require("cleverbot.io"),
 // bot = new cleverbot("Lxy4yF4XHO4VcBem", "vrAMnpeRdG6ASVbbADKnBc1br1FQLPpU");
 // bot.setNick("sessionname")
@@ -41,7 +41,6 @@ const level = new EnmapMongo({
   dbName: 'enmap',
   url: 'mongodb://fallentaco:jn196196@ds235768.mlab.com:35768/fallentaco'
 });
-console.log(level);
 
 const Database = new Enmap({
     name: 'dataBase',
@@ -49,18 +48,19 @@ const Database = new Enmap({
     autoFetch: true,
     cloneLevel: 'deep'
 });
+// function x() {
+//   console.log(Enmap.fetchEverything());}
+// setTimeout(x, 8000)
 class Fallenthetaco extends Client {
     constructor(options) {
         super(options);
         this.db = Database;
     }
 }
-
 var client = new Fallenthetaco({
     disableEveryone: true,
     disabledEvents: ['TYPING_START', 'TYPING_STOP']
 });
-
 client.keys180 = new Enmap({
     name: 'keys180'
 });
@@ -121,6 +121,13 @@ client.permissions = new Enmap({
 client.fortnite = new Enmap({
     name: 'fortniteUsers'
 });
+client.minecraft = new Enmap({
+    name: 'minecraft'
+});
+client.minecraftcmds = new Enmap({
+    name: 'minecraftCmds'
+});
+
 var favicon = require('serve-favicon');
 
 app.use(favicon(__dirname + '/Fallenthetaco.ico'));
@@ -130,6 +137,10 @@ app.get('/', function(req, res) {
         client: client
     })
 });
+setInterval(() => {
+  http.get(`http://fallenthetaco.glitch.me/`);
+}, 280000);
+
 app.get('/support', function(req, res) {
     res.sendFile(__dirname + '/support.html')
 });
@@ -187,7 +198,8 @@ dbl.webhook.on('vote', async (vote) => {
         const people = client.blocks.get('blacklist');
         if (people.includes(vote.user)) return;
         // const amount = Math.floor(Math.random() * 2001) + 1000;
-        const amount = Math.floor(Math.random() * 2001) + 2000;
+        // const amount = Math.floor(Math.random() * 2001) + 2000;
+        const amount = Math.floor(Math.random() * 2001) + 4000
         eco.AddToBalance(vote.user, amount);
         upvoted.send(`The user with the ID: ${vote.user} has voted. I gave him $${amount}`);
         client.fetchUser(vote.user).then(user => {
@@ -199,7 +211,8 @@ dbl.webhook.on('vote', async (vote) => {
         const people = client.blocks.get('blacklist');
         if (people.includes(vote.user)) return;
         // const amount = Math.floor(Math.random() * 1001) + 500;
-        const amount = Math.floor(Math.random() * 1001) + 1000;
+        // const amount = Math.floor(Math.random() * 1001) + 1000;
+        const amount = Math.floor(Math.random() * 1001) + 2000
         eco.AddToBalance(vote.user, amount);
         upvoted.send(`The user with the ID: ${vote.user} has voted. I gave him $${amount}`);
         client.fetchUser(vote.user).then(user => {
@@ -263,19 +276,19 @@ process.on('exit', (code) => {
 const {
     Handler
 } = require('djs-easy-command');
+// const ch = new Handler(client, {
+//     directory: `${__dirname}/minecraft/`,
+//     prefixes: ['!mi', '<@436047056394649600>'],
+//     owners: ['286713468285878272']
+// });
+
 const CH = new Handler(client, {
     directory: `${__dirname}/commands/`,
     prefixes: ['!', '<@436047056394649600>'],
     owners: ['286713468285878272'],
     disabled: []
 });
-// function loop() {
-// for (var key of client.commands.keys()) {
-//   client.command.ensure('commands', []);
-//   client.commands.set(key, key)
-//   client.command.push('commands', `!${key}`);
-// }
-// }
+
 function commandLoop() {
     client.comman.set('command', [])
     for (var value of client.commands.values()) {
@@ -288,8 +301,45 @@ function commandLoop() {
         });
     }
 }
-// setTimeout(loop, 8000)
 setTimeout(commandLoop, 8000)
+
+const mongo = require('mongodb');
+var MongoClient = mongo.MongoClient;
+const uri = "mongodb+srv://Fallentaco:jn196196@discordbot-3t7gk.mongodb.net/test?retryWrites=true";
+MongoClient.connect(uri, function(err, dab) {
+  if (err) throw err;
+  console.log("Database connected!");
+  var dbo = dab.db("mydb");
+  if (!dbo.collection('commands')) {
+  dbo.createCollection('commands', function(err, res) {
+    if (err) throw err;
+    console.log("Collection created!");
+  });
+  }
+  const commands = client.comman.get('command');
+  // commands.forEach(function(x) {
+  //   if (dbo.collection('commands').find(x).limit(1));
+  //   dbo.collection("commands").insertOne(x, function(err, res) {
+  //   if (err) throw err;
+  //   console.log(`${x.name}'s document created!`);
+  //   });
+  // });
+  const items = client.items;
+  if (dbo.collection('items').find(items)) return;
+  dbo.collection('items').insertOne(items, function(err, deb) {
+  if (err) throw err;
+    console.log('Collection Created');
+  dab.close();
+  });
+  });
+  // const obj = {
+  //   name: commands,
+  //   usage: usage,
+  //   description: description,
+  //   alias: `!${alias}`,
+  //   category: category
+  // }
+  
 
 // Old command handler
 // fs.readdir("./commands/", (err, files) => {
@@ -306,6 +356,12 @@ setTimeout(commandLoop, 8000)
 //     });
 // });
 const handleGuildMemberAdd = async (member) => {
+    const memberCount = member.guild.channels.find((channel) => channel.name.startsWith(`Member Count:`));
+    if (!memberCount) return;
+    const botCount = member.guild.channels.find((channel) => channel.name.startsWith(`Bot Count:`));
+    memberCount.edit({name: `Member Count: ${member.guild.members.filter(members => !members.user.bot).size}`});
+    botCount.edit({name: `Bot Count: ${member.guild.members.filter(members => members.user.bot).size}`});
+
     const serverCheck = client.autoRole.get(member.guild.id);
     const channelid = client.channel.get(member.guild.id);
     const messages = client.message.get(member.guild.id);
@@ -317,6 +373,16 @@ const handleGuildMemberAdd = async (member) => {
         member.addRole(serverCheck);
     }
 }
+const handleGuildMemberRemove = async (member) => {
+  const memberCount = member.guild.channels.find((channel) => channel.name.startsWith(`Member Count:`));
+  if (!memberCount) return;
+  const botCount = member.guild.channels.find((channel) => channel.name.startsWith(`Bot Count:`));
+  if (!botCount) return;
+  memberCount.edit({name: `Member Count: ${member.guild.members.filter(members => !members.user.bot).size}`});
+  botCount.edit({name: `Bot Count: ${member.guild.members.filter(members => members.user.bot).size}`});
+
+}
+
 const handleGuildCreate = async (guild) => {
     client.guildPrefixes.set(guild.id, '!');
     const embed = new Discord.RichEmbed()
@@ -448,7 +514,6 @@ const handleMessage = async (message) => {
     if (message.guild.id === '446775078240387093') {
         if (swearWords.some(word => message.content.includes(word))) {
             message.delete();
-            message.reply('Please do not say a bad word again.')
         }
     }
     if (message.guild.id === '529384883232178202') {
@@ -472,13 +537,12 @@ const handleMessage = async (message) => {
 
     client.activatePower.forEach(removeMapElementsByValue.bind(null, times));
     if (message.content === '<@436047056394649600>') {
-        client.db.find({
-            id: message.guild.id
-        }, (err, data) => {
+        
+      const data = client.guildPrefixes.get(message.guild.id);
             if (!data[0]) return message.channel.send('The prefix is **!**');
-            if (data[0]) return message.channel.send(`The prefix is **${data[0].prefix}** or **!** (default)`);
-        });
-    }
+            if (data[0] === "!") return message.channel.send('The prefix is **!**')
+            if (data[0]) return message.channel.send(`The prefix is **${data[0]}** or **!** (default)`);
+        }
     if (!message.content.startsWith('!')) return;
     const args = message.content.split(/ +/g);
 
@@ -522,7 +586,7 @@ const handleMessage = async (message) => {
     if (message.content.startsWith('!channel')) {
         console.log(message.channel.id)
     }
-    if (message.content.startsWith('!set')) {
+    if (message.content.startsWith('!sete')) {
       if (message.author.id !== ownerID) return;
       let act = args.slice(1).join(' ');
       if (!act) return message.channel.send('You must provide something for the activity on the website');
@@ -538,17 +602,30 @@ const handleMessage = async (message) => {
     if (message.content.startsWith('!block')) {
         if (message.author.id !== ownerID) return;
         client.blocks.ensure('blacklist', []);
-        let person = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[1]);
-        if (!person) return message.channel.send('You must provide mention the person you want to blacklist from the bot\'s economy.');
-        person = person.id;
-        if (!isNaN(args[1])) {
         let person = message.guild.members.get(args[1]).id;
-        if (!person) return message.channel.send('You must provide a real id of the person you want to remove from the blacklist.')
+        if (!person) return message.channel.send(`You must provide a id of the person you want to the blacklist.`)
+        if (!isNaN(person)) {
+        let person = message.guild.members.get(args[1]).id;
+        if (!person) return message.channel.send('You must provide a real id of the person you want to blacklist.')
         }
         let check = client.blocks.get('blacklist')
         if (check.includes(person)) return message.channel.send('This person is already blacklisted.')
         client.blocks.push('blacklist', person);
         message.channel.send(`I have successfully blacklisted: **${person}** from using economy.`)
+    }
+    if (message.content.startsWith('!check')) {
+      MongoClient.connect(uri, function(err, dab) {
+        if (err) throw err;
+        console.log("Database connected!");
+        var dbo = dab.db("mydb");
+        dbo.collection('items').find({}, function(err, doc) {
+          console.log(doc);
+        const hey = doc[message.author.id];
+        console.log(hey)
+        });
+          if (err) throw err;
+        dab.close();
+      });
     }
     if (message.content.startsWith('!unblock')) {
         if (message.author.id !== ownerID) return;
@@ -664,6 +741,7 @@ const handleMessage = async (message) => {
         message.channel.send(attach);
         return;
     }
+  
 }
 // const shards = Manager.shards;
 // console.log(shards);
@@ -793,23 +871,6 @@ const handleReady = (message) => {
                             server_count: results.reduce((prev, val) => prev + val, 0),
                         })
                         .catch(r => console.log('[discordbots.group] Failed POST'));
-                //     const {
-                //         post
-                //     } = require('snekfetch')
-                //     const updateBotList = async () => {
-                //         console.log('Updating DBL stats')
-                //
-                //         const {
-                //             body: reply
-                //         } = await post('https://discordbotlist.com/api/bots/436047056394649600/stats')
-                //             .set("Authorization", `Bot 5af87d9b0e181430a27b6f91dae3815847b6bfff76919faf580ba33075aecbd2`)
-                //             .send({
-                //                 guilds: results.reduce((prev, val) => prev + val, 0),
-                //                 users: user.reduce((prev, val) => prev + val, 0),
-                //             })
-                //         return (reply)
-                //     }
-                //     const responseFromAPI = updateBotList()
                 })
         })
 };
@@ -818,6 +879,7 @@ client.on('message', handleMessage);
 client.on('guildCreate', handleGuildCreate);
 client.on('guildDelete', handleGuildDelete)
 client.on('guildMemberAdd', handleGuildMemberAdd);
+client.on('guildMemberRemove', handleGuildMemberRemove);
 client.on('ready', handleReady);
 client.on('error', console.error);
 

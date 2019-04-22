@@ -29,18 +29,19 @@ class start extends Command {
       client.blocks.ensure('blacklist', []);
       let people = client.blocks.get('blacklist');
       if (people.includes(message.author.id)) return message.channel.send('You have been blacklisted from using economy commands.');
+      client.players.ensure('0', []);
         const data = client.players.get("0");
         try {
             if (data.includes(message.author.id)) {
                 const embed = new Discord.RichEmbed()
                     .setColor(`#36393E`)
-                    .setDescription('You have already claimed your free 1000 🌮. You can claim again after I hit 150 servers');
+                    .setDescription('You have already claimed your free 1500 🌮. You can claim again after I hit 200 servers');
                 message.channel.send(embed);
             } else {
                 const embed = new Discord.RichEmbed()
                     .setColor(`#36393E`)
-                    .setDescription('You have successfully claimed 1000 tacos')
-                eco.AddToBalance(message.author.id, 1000);
+                    .setDescription('You have successfully claimed 1500 tacos')
+                eco.AddToBalance(message.author.id, 1500);
                 message.channel.send(embed);
                 client.players.push("0", message.author.id)
             }

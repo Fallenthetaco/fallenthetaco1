@@ -27,7 +27,8 @@ class serverinfo extends Command {
         mentionHook.send(webhook);
         let channels = message.guild.channels.filter(s => s.type === 'text');
         let voice = message.guild.channels.filter(s => s.type === 'voice');
-        const guildOwner = await message.guild.fetchMember(message.guild.ownerID).then(owner => owner.user.tag).catch(err => console.error(err));
+//        const guildOwner = await message.guild.fetchMember(message.guild.ownerID).then(owner => owner.user.tag).catch(err => console.error(err));
+        const guildOwner = await client.fetchUser(message.guild.ownerID).then(user => user.tag);
         const roles = message.guild.roles.filter(r => r.name !== "@everyone").map(r => `<@&${r.id}>`).join(', ');
         if (roles.length > 1024) {
             const embeddddddddddddddddddddddddddddddddddddddd = new Discord.RichEmbed()

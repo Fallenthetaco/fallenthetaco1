@@ -27,6 +27,7 @@ class buy extends Command {
             client.job.ensure(message.author.id, ['Taco Bell Employee']);
             client.jobs.ensure(message.author.id, 'Taco Bell Employee');
             client.items.ensure(message.author.id, {
+                name: message.author.username,
                 tacos: 0,
                 plastics: 0,
                 burritos: 0,

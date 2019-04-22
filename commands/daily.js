@@ -29,6 +29,7 @@ class daily extends Command {
         try {
             client.jobs.ensure(message.author.id, 'Taco Bell Employee');
             client.items.ensure(message.author.id, {
+                name: message.author.username,
                 tacos: 0,
                 plastics: 0,
                 burritos: 0,
@@ -43,21 +44,29 @@ class daily extends Command {
                 if (l.updated) {
                     // eco.AddToBalance(message.author.id, 500);
                     if (jobs === 'Taco Bell Employee') {
-                        eco.AddToBalance(message.author.id, 1000);
+                        // eco.AddToBalance(message.author.id, 1000);
+                        eco.AddToBalance(message.author.id, 2000);
                     } else if (jobs === 'Operations Engineer') {
-                        eco.AddToBalance(message.author.id, 1500);
+                        // eco.AddToBalance(message.author.id, 1500);
+                        eco.AddToBalance(message.author.id, 3000);
                     } else if (jobs === 'Packaging Engineer') {
-                        eco.AddToBalance(message.author.id, 2500);
+                        // eco.AddToBalance(message.author.id, 2500);
+                        eco.AddToBalance(message.author.id, 5000);
                     } else if (jobs === 'Associate R Manager') {
-                        eco.AddToBalance(message.author.id, 3700);
+                        // eco.AddToBalance(message.author.id, 3700);
+                        eco.AddToBalance(message.author.id, 7400);
                     } else if (jobs === 'Assistant General Manager') {
-                        eco.AddToBalance(message.author.id, 5500);
+                        // eco.AddToBalance(message.author.id, 5500);
+                        eco.AddToBalance(message.author.id, 11000);
                     } else if (jobs === 'R General Manager') {
-                        eco.AddToBalance(message.author.id, 8000);
+                        // eco.AddToBalance(message.author.id, 8000);
+                        eco.AddToBalance(message.author.id, 16000);
                     } else if (jobs === 'Shift Manager') {
-                        eco.AddToBalance(message.author.id, 10500);
+                        // eco.AddToBalance(message.author.id, 10500);
+                        eco.AddToBalance(message.author.id, 21000);
                     } else if (jobs === 'Tacobell Mafia Boss') {
-                        eco.AddToBalance(message.author.id, 15000);
+                        // eco.AddToBalance(message.author.id, 15000);
+                        eco.AddToBalance(message.author.id, 30000);
                     }
                     eco.FetchBalance(message.author.id).then(x => {
                         const embed = new Discord.RichEmbed()

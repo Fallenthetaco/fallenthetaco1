@@ -31,7 +31,7 @@ class goal extends Command {
                 const embed = new Discord.RichEmbed()
                     .setColor(`#36393E`)
                     .setTimestamp()
-                    .setDescription(`I need ${Math.floor(150 - results.reduce((prev, val) => prev + val, 0))} more servers to reach my 150 servers goal.`);
+                    .setDescription(`I need ${Math.floor(200 - results.reduce((prev, val) => prev + val, 0))} more servers to reach my 200 servers goal.`);
                 message.channel.send(embed);
 
             })

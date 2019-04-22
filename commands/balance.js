@@ -33,6 +33,7 @@ class balance extends Command {
             client.jobs.ensure(member.id, 'Taco Bell Employee');
             //taco", "burrito", "quesadilla", "nachos", "rusty can", 'plastic'
             client.items.ensure(member.id, {
+                name: member.username,
                 tacos: 0,
                 plastics: 0,
                 burritos: 0,
