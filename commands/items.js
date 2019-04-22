@@ -29,6 +29,7 @@ class items extends Command {
       if (people.includes(message.author.id)) return message.channel.send('You have been blacklisted from using economy commands.');
       let member = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0]) || message.guild.member(message.author);
         client.items.ensure(member.id, {
+            name: member.username,
             tacos: 0,
             plastics: 0,
             burritos: 0,
@@ -37,6 +38,7 @@ class items extends Command {
             quesadillas: 0
         });
         client.powerups.ensure(member.id, {
+            name: member.username,
             srirachas: 0,
             jalapenos: 0,
             salsas: 0

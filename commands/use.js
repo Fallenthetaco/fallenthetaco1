@@ -30,6 +30,7 @@ class use extends Command {
         .setDescription(`<@${message.author.id}>, You have been blacklisted from using economy commands.`)
         if (people.includes(message.author.id)) return message.channel.send(blacklisted);
         let powerup = client.powerups.ensure(message.author.id, {
+            name: message.author.username,
             srirachas: 0,
             jalapenos: 0,
             salsas: 0

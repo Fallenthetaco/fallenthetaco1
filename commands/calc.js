@@ -28,6 +28,10 @@ class calc extends Command {
       .setColor('#36393E')
       .setDescription('Please put in a calculation.')
       if (!args[0]) return message.channel.send(argsFail);
+      const calcFail = new Discord.RichEmbed()
+      .setColor('#36393E')
+      .setDescription('Please only put in valid math problems');
+      if (args[0] === 'config') return message.channel.send(calcFail);
       let rasp;
       try {
         rasp = math.eval(args.join(' '));

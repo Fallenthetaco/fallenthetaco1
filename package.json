@@ -45,6 +45,7 @@
     "lzma-native": "^4.0.3",
     "mathjs": "^5.4.2",
     "moment-duration-format": "^2.2.2",
+    "mongodb": "^3.1.13",
     "nan": "^2.12.1",
     "nedb": "^1.8.0",
     "node-cmd": "^3.0.0",

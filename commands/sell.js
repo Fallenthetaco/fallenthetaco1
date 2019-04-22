@@ -27,6 +27,7 @@ class sell extends Command {
       const people = client.blocks.get('blacklist');
             if (people.includes(message.author.id)) return message.channel.send('You have been blacklisted from using economy commands.');
         client.items.ensure(message.author.id, {
+            name: message.author.username,
             tacos: 0,
             plastics: 0,
             burritos: 0,

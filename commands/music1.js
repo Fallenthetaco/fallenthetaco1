@@ -59,7 +59,7 @@ class music1 extends Command {
 
             const searchString = args.slice(1).join(" ");
             const url = args[1].replace(/<(.+)>/g, "$1");
-
+            // const url = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
             if (url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
                 const playlist = await youtube.getPlaylist(url);
                 const videos = await playlist.getVideos();
@@ -243,7 +243,11 @@ class music1 extends Command {
             return message.channel.send(fail);
         } else if (args[0] === "volume") {
           if (message.author.id !== ownerID) return message.channel.send('Apparently, I decided to make this command donators only. Sorry for the unexpected action. I need the money so I can host the bot in a server.');
-            client.channels.get(config.channelId).send(`${message.author.username}#${message.author.discriminator} used the **volume** command in the server: ${message.guild.name} (${message.guild.id})`);
+          const webhook = new Discord.RichEmbed()
+          .setColor('#36393E')
+          .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
+          .setDescription(`${message.author.username}#${message.author.discriminator} used the **volume** command`)
+            mentionHook.send(webhook);
             try {
                 const volumeFail = new Discord.RichEmbed()
                     .setColor(`#36393E`)
@@ -347,6 +351,7 @@ async function handleMusic(video, message, voiceChannel, playlist = false) {
         const serverQueue = queue.get(message.guild.id);
         const song = {
             id: video.id,
+            duration: `${video.duration.minutes}:${video.duration.seconds}`,
             title: Discord.escapeMarkdown(video.title),
             url: `https://www.youtube.com/embed/${video.id}?vq=small`
         }
@@ -355,6 +360,7 @@ async function handleMusic(video, message, voiceChannel, playlist = false) {
             //Creates array for queue
             const queueConstruct = {
                 textChannel: message.channel,
+                memberRequested: message.author,
                 voiceChannel: voiceChannel,
                 connection: null,
                 songs: [],
@@ -378,6 +384,7 @@ async function handleMusic(video, message, voiceChannel, playlist = false) {
         } else {
             serverQueue.songs.push(song);
             if (playlist) return;
+            
             const addedQueue = new Discord.RichEmbed()
                 .setColor(`#36393E`)
                 .setDescription(`**${song.title}** has been added to the queue!`)
@@ -414,9 +421,14 @@ function play(guild, song) {
             })
             .on("error", error => console.log(error));
         dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
-
+        const url = serverQueue.songs[0].url;
+        
+        const messagee = url.replace(`embed/`, `watch?v=`).replace('?vq=small', '');
         const songPlay = new Discord.RichEmbed()
             .setColor(`#36393E`)
+            .addField('Length', song.duration, true)
+            .addField('Requested by:', serverQueue.memberRequested.tag, true)
+            .addField('URL', messagee, true)
             .setDescription(`Playing: **${serverQueue.songs[0].title}**`)
         serverQueue.textChannel.send(songPlay);
 
