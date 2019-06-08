@@ -5,6 +5,8 @@ const queue = new Map();
 const config = require('../config.json');
 const youtube = new YouTube('AIzaSyDIc5xF7lWIpahYOKlIoij05vtP0FruwTc');
 const ownerID = '286713468285878272';
+const users = ['286713468285878272', '274061041669767168'];
+
 const {
     Command
 } = require('djs-easy-command');
@@ -29,6 +31,7 @@ class music1 extends Command {
         const prefix = client.guildPrefixes.get(message.guild.id);
         if (!prefix) client.guildPrefixes.set(message.guild.id, '!');
         if (args[0] === "play") {
+          await message.delete();
           const webhook = new Discord.RichEmbed()
           .setColor('#36393E')
           .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
@@ -242,7 +245,7 @@ class music1 extends Command {
                 .setDescription('There is nothing currently playing.')
             return message.channel.send(fail);
         } else if (args[0] === "volume") {
-          if (message.author.id !== ownerID) return message.channel.send('Apparently, I decided to make this command donators only. Sorry for the unexpected action. I need the money so I can host the bot in a server.');
+          if (!users.includes(message.author.id)) return message.channel.send('Apparently, I decided to make this command donators only. Sorry for the unexpected action. I need the money so I can host the bot in a server.');
           const webhook = new Discord.RichEmbed()
           .setColor('#36393E')
           .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
@@ -253,6 +256,10 @@ class music1 extends Command {
                     .setColor(`#36393E`)
                     .setDescription("You're not in a voice channel!")
                 if (!message.member.voiceChannel) return message.channel.send(volumeFail);
+                const sameIDFail = new Discord.RichEmbed()
+                    .setColor('#36393E')
+                    .setDescription('You are not in the same voice channel as I am in.');
+                if (message.member.voiceChannel !== message.guild.me.voiceChannel) return message.channel.send(sameIDFail);
 
                 const musicFail = new Discord.RichEmbed()
                     .setColor(`#36393E`)
@@ -304,6 +311,7 @@ class music1 extends Command {
                 });
                 if (serverQueue.songs.length > 10) queueList.push(`*(${serverQueue.songs.length} more songs)*`);
                 queueList = queueList.join("\n");
+              
                 return message.channel.send(`
             __**Song Queue:**__\n
             ${queueList.trim()}\n
@@ -323,10 +331,16 @@ class music1 extends Command {
                     .setColor(`#36393E`)
                     .setDescription("Nothing is playing...")
                 if (!serverQueue) return message.channel.send(connectFail);
+          const url = serverQueue.songs[0].url;
+          const messagee = url.replace(`embed/`, `watch?v=`).replace('?vq=small', '');
 
-                const songPlay = new Discord.RichEmbed()
-                    .setColor(`#36393E`)
-                    .setDescription(`Playing: **${serverQueue.songs[0].title}**`)
+          const songPlay = new Discord.RichEmbed()
+            .setColor(`#36393E`)
+            .addField('Length', serverQueue.songs[0].duration, true)
+            .addField('Requested by:', serverQueue.memberRequested.tag, true)
+            .addField('URL', messagee, true)
+            .setDescription(`Playing: **${serverQueue.songs[0].title}**`)
+            .setImage(serverQueue.songs[0].image);
                 return message.channel.send(songPlay);
             } catch (e) {
                 console.log(e)
@@ -349,13 +363,20 @@ class music1 extends Command {
 async function handleMusic(video, message, voiceChannel, playlist = false) {
     try {
         const serverQueue = queue.get(message.guild.id);
+      // console.log(video);
         const song = {
             id: video.id,
             duration: `${video.duration.minutes}:${video.duration.seconds}`,
             title: Discord.escapeMarkdown(video.title),
-            url: `https://www.youtube.com/embed/${video.id}?vq=small`
+            url: `https://www.youtube.com/embed/${video.id}?vq=small`,
+            image: video.thumbnails.high.url
         }
-
+      if (video.duration.seconds < 10) {
+        song.duration = `${video.duration.minutes}:0${video.duration.seconds}`
+      }
+      if (video.duration.hours > 0) {
+        song.duration = `${video.duration.hours}:${video.duration.minutes}:${video.duration.seconds}`
+      }
         if (!serverQueue) {
             //Creates array for queue
             const queueConstruct = {
@@ -422,7 +443,7 @@ function play(guild, song) {
             .on("error", error => console.log(error));
         dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
         const url = serverQueue.songs[0].url;
-        
+        if (serverQueue.repeating === true) return;
         const messagee = url.replace(`embed/`, `watch?v=`).replace('?vq=small', '');
         const songPlay = new Discord.RichEmbed()
             .setColor(`#36393E`)
@@ -430,6 +451,7 @@ function play(guild, song) {
             .addField('Requested by:', serverQueue.memberRequested.tag, true)
             .addField('URL', messagee, true)
             .setDescription(`Playing: **${serverQueue.songs[0].title}**`)
+            .setImage(serverQueue.songs[0].image);
         serverQueue.textChannel.send(songPlay);
 
     } catch (e) {

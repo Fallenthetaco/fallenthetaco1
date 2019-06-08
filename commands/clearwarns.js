@@ -20,6 +20,7 @@ class clearwarn extends Command {
       async run (client, message, args) {
         const webhook = new Discord.RichEmbed()
         .setColor('#36393E')
+        .setTimestamp()
         .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
         .setDescription(`${message.author.username}#${message.author.discriminator} used the **clearwarns** command`)
           mentionHook.send(webhook);
@@ -27,6 +28,7 @@ class clearwarn extends Command {
         const data = client.warnings.get(`${message.guild.id}_${user.id}`);
         const embed = new Discord.RichEmbed()
         .setColor('#36393E')
+        .setTimestamp()
         .setDescription('The user doesn\'t have any warns for me to clear')
         if (!data) return message.channel.send(embed);
         const warn = client.warnings.get(`${message.guild.id}_${user.user.username}`);
@@ -35,6 +37,7 @@ class clearwarn extends Command {
         client.warnings.delete(`${message.guild.id}_${user.user.username}`);
         const cleared = new Discord.RichEmbed()
         .setColor('#3693E')
+        .setTimestamp()
         .setDescription(`I have successfully cleared ${user.user.tag}'s warns`)
         message.channel.send(cleared);
 

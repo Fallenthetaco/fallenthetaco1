@@ -58,12 +58,14 @@ class settings extends Command {
             client.message.set(message.guild.id, `${messages}`);
             return message.channel.send('You have successfully set a message for me to send when a member joins')
         } else if (args[1] === 'modlogs') {
+          client.modLogs.ensure('guilds', [])
           let logs = args[2];
           if (!logs) return message.channel.send('You must provide the channel id for me to log to.');
-            if (message.channel.id === logs) {
-              client.logs.set(message.guild.id, logs);
+          if (isNaN(logs)) return message.channel.send('You must provide the channel id for me to log ')
+            if (message.guild.channels.find(x => x.id === logs)) {
+              client.modLogs.push(message.guild.id, logs);
               message.channel.send(`You have successfully set the modlogs into <#${logs}>`)
-            } else return message.channel.send(`The channel id ${logs} does not exist. Please retry with the correct channel id.`)
+            } else return message.channel.send(`The channel id \`${logs}\` does not exist. Please retry with the correct channel id.`)
         } else if (args[0] === 'set') {
             const embed = new Discord.RichEmbed()
                 .setColor(`#36393E`)

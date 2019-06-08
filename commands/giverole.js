@@ -61,7 +61,7 @@ class giverole extends Command {
 
             if (!role) return message.channel.send(rolle);
 
-            const dRole = message.guild.roles.find('name', role);
+            const dRole = message.guild.roles.find(x => x.name === role);
 
             const drolle = new Discord.RichEmbed()
                 .setColor(`#36393E`)

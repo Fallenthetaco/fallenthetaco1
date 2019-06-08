@@ -31,18 +31,20 @@ class prune extends Command {
 
         // This checks if args[0] is NOT a number, if not it runs the return statement which sends a message in chat.
         // We also need to check if the number is LESS THAN 100, since 100 is the max you can delete at once.
+        if (isNaN(args[0])) return message.channel.send('Please supply a number.')
+        const clear = parseInt(args[0]) + 1;
         const greaterthan100 = new Discord.RichEmbed()
         .setColor('#36393E')
         .setDescription('**Please supply a number less than 100**')
-        if (args[0] > 100) return message.channel.send(greaterthan100);
+        if (clear > 100) return message.channel.send(greaterthan100);
         const lessthan1 = new Discord.RichEmbed()
         .setDescription('**Please supply a number more than 1**')
         .setColor('#36393E')
-        if (args[0] < 1) return message.channel.send(lessthan1);
+        if (clear < 1) return message.channel.send(lessthan1);
         // This checks if args[0] is MORE THAN 100, if it is, it returns and sends a message.
 
         // Now, we can delete the messages
-        message.channel.bulkDelete(args[0])
+        message.channel.bulkDelete(clear)
             .then(messages => {
                 const embed = new Discord.RichEmbed()
                     .setColor(`#36393E`)

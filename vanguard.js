@@ -103,7 +103,7 @@ client.blocks = new Enmap({
 client.activatePower = new Enmap({
     name: 'playersActivate'
 });
-client.logs = new Enmap({
+client.modLogs = new Enmap({
     name: 'logs'
 });
 client.activities = new Enmap({
@@ -356,22 +356,29 @@ MongoClient.connect(uri, function(err, dab) {
 //     });
 // });
 const handleGuildMemberAdd = async (member) => {
+    const channelid = client.channel.get(member.guild.id);
+    if (channelid) {
+      const serverCheck = client.autoRole.get(member.guild.id);
+      const messages = client.message.get(member.guild.id);
+      if (!messages) return;
+
+      const messagee = messages.replace(/{guildname}/g, member.guild.name).replace(/{tag}/g, `${member.user}`);
+      if (channelid) {
+        client.channels.get(channelid).send(messagee);
+        member.addRole(serverCheck);
+      }
     const memberCount = member.guild.channels.find((channel) => channel.name.startsWith(`Member Count:`));
     if (!memberCount) return;
     const botCount = member.guild.channels.find((channel) => channel.name.startsWith(`Bot Count:`));
     memberCount.edit({name: `Member Count: ${member.guild.members.filter(members => !members.user.bot).size}`});
     botCount.edit({name: `Bot Count: ${member.guild.members.filter(members => members.user.bot).size}`});
-
-    const serverCheck = client.autoRole.get(member.guild.id);
-    const channelid = client.channel.get(member.guild.id);
-    const messages = client.message.get(member.guild.id);
-    if (!messages) return;
-
-    const messagee = messages.replace(/{guildname}/g, member.guild.name).replace(/{tag}/g, `${member.user.tag}`);
-    if (channelid) {
-        client.channels.get(channelid).send(messagee);
-        member.addRole(serverCheck);
-    }
+    } else {
+    const memberCount = member.guild.channels.find((channel) => channel.name.startsWith(`Member Count:`));
+    if (!memberCount) return;
+    const botCount = member.guild.channels.find((channel) => channel.name.startsWith(`Bot Count:`));
+    memberCount.edit({name: `Member Count: ${member.guild.members.filter(members => !members.user.bot).size}`});
+    botCount.edit({name: `Bot Count: ${member.guild.members.filter(members => members.user.bot).size}`});
+}
 }
 const handleGuildMemberRemove = async (member) => {
   const memberCount = member.guild.channels.find((channel) => channel.name.startsWith(`Member Count:`));
@@ -402,7 +409,18 @@ const handleGuildDelete = (guild) => {
     console.log(`I have left ${guild.name} at ${new Date()}`);
     // client.db.delete(guild.id);
 };
-
+const handleGuildMemberUpdate = async (oMember, nMember) => {
+  if (oMember.nickname === null) return;
+  const check = client.modLogs.get(oMember.guild.id);
+  if (!check) return;
+  const embed = new Discord.RichEmbed()
+    .setColor('#36393E')
+    .setDescription();
+  client.channels.get(check).send(embed)
+  
+  // console.log(oMember.nickname);
+  // console.log(nMember.nickname);
+};
 
 
 const func = require('./function.js');
@@ -411,96 +429,13 @@ const handleMessage = async (message) => {
 
     if (message.author.bot) return;
     if (message.channel.type !== 'text') {
-        let active = await db.fetch(`support_${message.author.id}`);
-        let guild = client.guilds.get('446775078240387093');
-        let role = guild.roles.find('name', "Member");
-        let channel, found = true;
-        try {
-            if (active) client.channels.get(active.channelID)
-                .guild;
-        } catch (e) {
-            found = false;
-        }
-        if (!active || !found) {
-            active = {};
-            channel = await guild.createChannel(`${message.author.username}-${message.author.discriminator}`).then(channel => channel.setParent("463841242678034472"));
-            channel.overwritePermissions(
-                role, {
-                    'READ_MESSAGES': false
-                }
-            )
-            let author = message.author;
-            const newChannel = new Discord.RichEmbed()
-                .setColor('RANDOM')
-                .setAuthor(author.tag, author.displayAvatarURL)
-                .setFooter('Support Ticket Created!')
-                .addField('User', author)
-                .addField('ID', author.id)
-                .setTimestamp()
-            await channel.send(newChannel);
-            await channel.send('<@285077327074033676> You got a new support ticket.')
-            const newTicket = new Discord.RichEmbed()
-                .setColor('RANDOM')
-                .setTimestamp()
-                .setAuthor(`Hello, ${author.username}`, author.displayAvatarURL)
-                .setFooter('Support Ticket Created!')
-            await author.send(newTicket);
-            active.channelID = channel.id;
-            active.targetID = author.id;
-        }
-        channel = client.channels.get(active.channelID);
-        const dm = new Discord.RichEmbed()
-            .setColor('RANDOM')
-            .setTimestamp()
-            .setDescription(message.content)
-            .setAuthor(`Thank you, ${message.author.username}`, message.author.displayAvatarURL)
-            .setFooter(`Your message has been sent - A staff member will be in contact soon.`)
-        await message.author.send(dm);
-        if (message.content === '!complete') return;
-        const embed = new Discord.RichEmbed()
-            .setColor('RANDOM')
-            .setTimestamp()
-            .setAuthor(message.author.tag, message.author.displayAvatarURL)
-            .setDescription(message.content)
-            .setFooter(`Message Received - ${message.author.tag}`)
-        await channel.send(embed);
-        db.set(`support_${message.author.id}`, active);
-        db.set(`supportChannel_${channel.id}`, message.author.id);
-        return;
+    const author = message.author;
+      const embed = new Discord.RichEmbed()
+      .setColor('RANDOM')
+      .setDescription(`If you want to start a new ticket, please [Click Here](https://discord.gg/53D2WKY) and do \`!new\``)
+      author.send(embed);
     }
-    let support = await db.fetch(`supportChannel_${message.channel.id}`);
-    if (support) {
-        support = await db.fetch(`support_${support}`);
-        let supportUser = client.users.get(support.targetID);
-        if (!supportUser) return message.channel.delete();
-        if (message.content.toLowerCase() === '!complete') {
-            const complete = new Discord.RichEmbed()
-                .setColor('RANDOM')
-                .setAuthor(`Hey, ${supportUser.tag}`, supportUser.displayAvatarURL)
-                .setFooter('Ticket Closed -- FallenTheTaco Lab')
-                .setTimestamp()
-                .setDescription('*Your ticket has been marked as complete. If you wish to reopen it, or create a new one, please send a message to the bot.*')
-            supportUser.send(complete);
-            message.channel.setParent('525343816035860480');
-            return db.delete(`support_${support.targetID}`);
-        }
-        const embed = new Discord.RichEmbed()
-            .setColor('RANDOM')
-            .setTimestamp()
-            .setAuthor(message.author.tag, message.author.displayAvatarURL)
-            .setFooter(`Message Received - FallenTheTaco Lab`)
-            .setDescription(message.content)
-        client.users.get(support.targetID)
-            .send(embed);
-        message.delete({
-            timeout: 10000
-        });
-        embed.setFooter(`Message Sent -- ${supportUser.tag}`)
-            .setDescription(message.content)
-            .setTimestamp();
-        return message.channel.send(embed);
-    }
-    if (message.channel.type === "dm") return;
+        if (message.channel.type === "dm") return;
     const prefix = client.guildPrefixes.get(message.guild.id);
     if (!prefix) client.guildPrefixes.set(message.guild.id, '!');
 
@@ -534,7 +469,20 @@ const handleMessage = async (message) => {
             map.delete(key)
         }
     }
-
+  if (message.guild.id === '446775078240387093') {
+    if (message.content.includes("https://")) {
+      message.delete(1);
+      message.channel.send("No links here, " + message.author);
+    }
+    if (message.content.includes("http://")) {
+      message.delete(1);
+      message.channel.send("No links here, " + message.author);
+    }
+    if (message.content.includes('discord.gg')) {
+      message.delete(1);
+      message.channel.send('No links here, ' + message.author);
+    }
+  }
     client.activatePower.forEach(removeMapElementsByValue.bind(null, times));
     if (message.content === '<@436047056394649600>') {
         
@@ -586,7 +534,7 @@ const handleMessage = async (message) => {
     if (message.content.startsWith('!channel')) {
         console.log(message.channel.id)
     }
-    if (message.content.startsWith('!sete')) {
+    if (message.content.startsWith('!update')) {
       if (message.author.id !== ownerID) return;
       let act = args.slice(1).join(' ');
       if (!act) return message.channel.send('You must provide something for the activity on the website');
@@ -881,6 +829,7 @@ client.on('guildDelete', handleGuildDelete)
 client.on('guildMemberAdd', handleGuildMemberAdd);
 client.on('guildMemberRemove', handleGuildMemberRemove);
 client.on('ready', handleReady);
+client.on('guildMemberUpdate', handleGuildMemberUpdate);
 client.on('error', console.error);
 
 client.login('NDM2MDQ3MDU2Mzk0NjQ5NjAw.DzreTA.l9nN1bLbkJE2JZs9dwiHQGEvmBA');
