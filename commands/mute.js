@@ -50,7 +50,7 @@ class mute extends Command {
                 .setDescription('You can not mute a member that has higher permissions than you!')
             if (toMute.highestRole.position >= message.member.highestRole.position) return message.channel.send(highestPermFail);
 
-            let role = message.guild.roles.find('name', 'Muted');
+            let role = message.guild.roles.find(x => x.name === 'Muted');
             if (!role) {
                 try {
                     let role = await message.guild.createRole({

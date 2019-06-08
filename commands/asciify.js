@@ -24,6 +24,7 @@ class asciify extends Command {
         try {
           const webhook = new Discord.RichEmbed()
           .setColor('#36393E')
+          .setTimestamp()
           .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
           .setDescription(`${message.author.username}#${message.author.discriminator} used the **asciify** command`)
             mentionHook.send(webhook);

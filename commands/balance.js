@@ -24,6 +24,7 @@ class balance extends Command {
         try {
           const webhook = new Discord.RichEmbed()
           .setColor('#36393E')
+          .setTimestamp()
           .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
           .setDescription(`${message.author.username}#${message.author.discriminator} used the **balance** command`)
             mentionHook.send(webhook);

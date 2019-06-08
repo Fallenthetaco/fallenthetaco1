@@ -1,6 +1,6 @@
 const headers = {
     headers: {
-        'TRN-Api-Key': "5ce2d0f1-be88-4222-b79d-3645e0561462"
+        'TRN-Api-Key': "394d9014-2e4e-4da1-9601-670c1d89b9c0"
     }
 }
 const fetch = require('node-fetch');
@@ -19,7 +19,7 @@ class fortnite extends Command {
             category: 'fun',
             description: 'Shows their Fortnite stats',
             usage: '!fornite <platform> <username>',
-            owner: true,
+            owner: false,
             nsfw: false,
             disabled: false
         })
@@ -34,7 +34,7 @@ class fortnite extends Command {
         if (args[0] === 'link') {
             const linked = new Discord.RichEmbed()
                 .setColor('#36393E')
-                .setDescription(`You have already linked your account. In order to unlink you have to do ${client.guildPrefixes.get(message.guild.id)}fortnite unlink`)
+                .setDescription(`You have already linked your account. In order to unlink you have to do **${client.guildPrefixes.get(message.guild.id)}fortnite unlink**`)
             if (client.fortnite.get(message.author.id)) return message.channel.send(linked);
             const platforms = args[1];
             const embed = new Discord.RichEmbed()
@@ -49,7 +49,9 @@ class fortnite extends Command {
                 .setDescription('You must provide the username for me to link')
             if (!player) return message.channel.send(noPlayer);
             let results;
-            fetch(`https://api.fortnitetracker.com/v1/profile/${platforms}/${player}`, headers).then(data => { results = data.json(); }).catch(err => console.log(err.stack));
+            fetch(`https://api.fortnitetracker.com/v1/profile/${platforms}/${player}`, headers).then(data => {
+                results = data.json();
+            }).catch(err => console.log(err.stack));
             client.fortnite.set(message.author.id, {
                 username: player,
                 platform: platforms
@@ -72,7 +74,7 @@ class fortnite extends Command {
         }
         const saved = client.fortnite.get(message.author.id);
         if (saved) {
-            const user = saved.username;
+            const user = saved.username
             const platform = saved.platform;
             const results = fetch(`https://api.fortnitetracker.com/v1/profile/${platform}/${user}`, headers).then(data => data.json()).then(json => {
                 const data = json.lifeTimeStats
@@ -99,10 +101,37 @@ class fortnite extends Command {
                 message.channel.send(embed);
             });
         } else {
-            const embed = new Discord.RichEmbed()
+            const platforms = args[0];
+            const embeed = new Discord.RichEmbed()
                 .setColor('#36393E')
-                .setDescription(`You must link your account to check your stats!! By doing **${client.guildPrefixes.get(message.guild.id)}fortnite link**`)
-            message.channel.send(embed)
+                .setFooter(`Usage: ${client.guildPrefixes.get(message.guild.id)}fortnite link (platform) (user)`)
+                .setDescription("You must provide your platform (pc, xbl, psn)")
+            if (platforms !== "pc" && platforms !== "psn" && platforms !== "xbl") return message.channel.send(embeed);
+            const user = args.slice(1).join(' ');
+            const results = fetch(`https://api.fortnitetracker.com/v1/profile/${platforms}/${user}`, headers).then(data => data.json()).then(json => {
+                const data = json.lifeTimeStats
+                const score = data[6].value;
+                const matchesPlayeds = data[7].value;
+                const matchesPlayed = Number(matchesPlayeds).toLocaleString();
+                const winss = data[8].value;
+                const wins = Number(winss).toLocaleString()
+                const winP = data[9].value;
+                const killss = data[10].value;
+                const kills = Number(killss).toLocaleString()
+                const kd = data[11].value;
+
+                const embedd = new Discord.RichEmbed()
+                    .setColor(`#36393E`)
+                    .setAuthor(`${json.epicUserHandle}'s Fortnite Stats`)
+                    .addField("Wins", wins, true)
+                    .addField("Score", score, true)
+                    .addField("Matches Played", matchesPlayed, true)
+                    .addField("Win Percentage", winP, true)
+                    .addField("Kills", kills, true)
+                    .addField("K/D", kd, true)
+                    .setFooter(`Requested by: ${message.author.tag}`, message.author.displayAvatarURL)
+                message.channel.send(embedd);
+            })
         }
     }
     // module.exports.help = {

@@ -39,6 +39,7 @@ class botinfo extends Command {
         try {
           const webhook = new Discord.RichEmbed()
           .setColor('#36393E')
+          .setTimestamp()
           .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
           .setDescription(`${message.author.username}#${message.author.discriminator} used the **botinfo** command`)
             mentionHook.send(webhook);
@@ -69,11 +70,11 @@ class botinfo extends Command {
                                 .setColor(`#36393E`)
                                 .setURL("https://discord.gg/53D2WKY")
                                 .addField('Servers', `${results.reduce((prev, val) => prev + val, 0)}`, true)
-                                .addField('Library', 'discord.js v11.4.2', true)
+                                .addField('Library', 'discord.js v11.5.0', true)
                                 .addField('Total Commands', client.commands.size, true)
                                 .addField('Total Members', `${user.reduce((prev, val) => prev + val, 0)}`, true)
                                 .addField('Developers', '`FallenTaco#6666`\n`Brogame#4115`', true)
-                                .addField('Version', 'v2.1', true)
+                                .addField('Version', 'v2.3', true)
                                 .addField('CPU', model, true)
                                 .addField('RAM Usage (Broken)', `${RamUsages} MB / ${RamTotal} MB`, true)
                                 .addField('heapTotal:', `${heaapTotal} MB`, true)

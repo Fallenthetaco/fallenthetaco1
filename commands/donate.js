@@ -26,6 +26,7 @@ class donate extends Command {
         mentionHook.send(webhook);
         const embed = new Discord.RichEmbed()
             .setColor(`#36393E`)
+            .setTimestamp()
             .addField('Patreon Donation', '[Click Here](https://www.patreon.com/Fallentaco)')
             .setFooter(`Requested by: ${message.author.tag} (${message.author.id})`)
         message.channel.send(embed);

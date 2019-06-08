@@ -42,7 +42,7 @@ class removerole extends Command {
             .setColor(`#36393E`)
             .setDescription('Specify a role!')
         if (!role) return message.channel.send(embeddd);
-        const dRole = message.guild.roles.find('name', role);
+        const dRole = message.guild.roles.find(x => x.name === role);
         const embedddd = new Discord.RichEmbed()
             .setColor(`#36393E`)
             .setDescription('Could not find that role!');

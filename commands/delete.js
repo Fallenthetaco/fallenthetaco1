@@ -22,6 +22,7 @@ class Delete extends Command {
     async run(client, message, args) {
       const webhook = new Discord.RichEmbed()
       .setColor('#36393E')
+      .setTimestamp()
       .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
       .setDescription(`${message.author.username}#${message.author.discriminator} used the **delete** command`)
         mentionHook.send(webhook);
@@ -30,11 +31,13 @@ class Delete extends Command {
             eco.Delete(message.author.id);
             const deleted = new Discord.RichEmbed()
             .setColor('#36393E')
+            .setTimestamp()
             .setDescription('I have successfully deleted your account')
             message.channel.send(deleted);
         } else {
           const not = new Discord.RichEmbed()
           .setColor('#36393E')
+          .setTimestamp()
           .setDescription('Please do `!delete confirm` to delete your account from the database')
             message.channel.send(not)
 

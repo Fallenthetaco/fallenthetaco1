@@ -24,11 +24,13 @@ class Eval extends Command {
     async run(client, message, args) {
         const embed = new Discord.RichEmbed()
             .setColor(`#36393E`)
+            .setTimestamp()
             .setDescription('You are not the owner of the bot to use this command!!');
         if (message.author.id !== config.ownerID) return message.channel.send(embed);
       const fail = new Discord.RichEmbed()
-      .setColor('#36393E')
-      .setDescription('Please provide a code that I can run on');
+            .setColor('#36393E')
+            .setTimestamp()
+            .setDescription('Please provide a code that I can run on');
         if (!args[0]) return message.channel.send(fail);
         if (args[0].toLowerCase() == 'bash') {
             let hrDiff
@@ -37,6 +39,7 @@ class Eval extends Command {
                 hrDiff = process.hrtime(hrStart)
               const embed = new Discord.RichEmbed()
               .setColor('#36393E')
+              .setTimestamp()
               .setDescription(`Error while evaluating: \`${err}\``)
                 if (err) return message.channel.send(embed)
                 return message.channel.send(`

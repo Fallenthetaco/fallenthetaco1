@@ -23,6 +23,7 @@ class coinflip extends Command {
     async run(client, message, args) {
       const webhook = new Discord.RichEmbed()
       .setColor('#36393E')
+      .setTimestamp()
       .setFooter(`Server: ${message.guild.name} (${message.guild.id})`)
       .setDescription(`${message.author.username}#${message.author.discriminator} used the **coinflip** command`)
         mentionHook.send(webhook);
@@ -35,15 +36,18 @@ class coinflip extends Command {
         try {
           const amountFail = new Discord.RichEmbed()
               .setColor("#36393E")
+              .setTimestamp()
               .setDescription("Please provide an amount for me to gamble")
               .setFooter(`${prefix}coinflip <amount> <heads or tails>`)
             if (!amount) return message.channel.send(amountFail);
           const numFail = new Discord.RichEmbed()
               .setColor("#36393E")
+              .setTimestamp()
               .setDescription("Please provide a valid amount!!");
             if (isNaN(args[0])) return message.channel.send(numFail);
             const embed = new Discord.RichEmbed()
                 .setColor(`#36393E`)
+                .setTimestamp()
                 .setFooter(`${prefix}coinflip <amount> <heads or tails>`)
                 .setDescription('Please tell me if you chose heads or tails!');
             if (!flip || !['heads', 'tails'].includes(flip)) return message.channel.send(embed);
@@ -51,12 +55,14 @@ class coinflip extends Command {
             eco.FetchBalance(message.author.id).then((i) => {
               const failAmount = new Discord.RichEmbed()
               .setColor('#36393E')
+              .setTimestamp()
               .setDescription(`<@${message.author.id}>, You have less 🌮 than the amount you want to gamble!`)
                 if (i.balance < amount) return message.channel.send(failAmount);
 
             eco.Coinflip(message.author.id, flip, amount).then(l => {
                 const winorlose = new Discord.RichEmbed()
                     .setColor(`#36393E`)
+                    .setTimestamp()
                     .setDescription(`<@${message.author.id}>, You ${l.output}! Your new balance is: ${l.newbalance.toLocaleString()} 🌮`);
                 message.channel.send(winorlose);
 
@@ -65,6 +71,7 @@ class coinflip extends Command {
         } catch (e) {
             const embed = new Discord.RichEmbed()
                 .setColor(`#36393E`)
+                .setTimestamp()
                 .setFooter(`Command: coinflip ${message.guild.name}`)
                 .setDescription(e);
             errorBot.send(embed);
